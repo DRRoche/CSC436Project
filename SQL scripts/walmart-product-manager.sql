@@ -36,7 +36,7 @@ create table employee(
 E_ID int,
 M_ID int,
 e_name varchar(20) NOT NULL,
-position char(20) NOT NULL, -- Change to enum
+position ENUM('Manager', 'Cashier', 'Stocker') NOT NULL,
 payroll_type ENUM('Hourly', 'Salary') NOT NULL,
 pay_rate numeric(9,2) NOT NULL,
 primary key (E_ID));
