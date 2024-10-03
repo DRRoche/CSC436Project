@@ -4,41 +4,41 @@ use Walmart_Product_Manager;
 
 create table department(
 dept_ID char(5),
-dept_name char(20),
+dept_name char(20) NOT NULL,
 primary key (dept_ID));
 
 create table product(
 SKU int,
 dept_ID char(5),
-prod_name char(20),
-size int,
+prod_name char(20) NOT NULL,
+size int NOT NULL,
 unit ENUM('oz', 'lb', 'pcs') NOT NULL,
-price numeric(8,2),
+price numeric(8,2) NOT NULL,
 primary key (SKU),
 foreign key (dept_ID) references department(dept_ID));
 
 create table store(
 store_ID int,
-street_num int,
-street_name char(20),
-city char(20),
-state char(20),
-zip_code int,
+street_num int NOT NULL,
+street_name char(20) NOT NULL,
+city char(20) NOT NULL,
+state char(20) NOT NULL,
+zip_code int NOT NULL,
 primary key (store_ID));
 
 create table brand(
 brand_ID char(5),
-brand_name char(20),
+brand_name char(20) NOT NULL,
 chain_exclusive bool,
 primary key (brand_ID));
 
 create table employee(
 E_ID int,
 M_ID int,
-e_name char(20),
-position char(20),
-payroll_type char(7),
-pay_rate numeric(9,2),
+e_name char(20) NOT NULL,
+position char(20) NOT NULL,
+payroll_type ENUM('Hourly', 'Salary') NOT NULL,
+pay_rate numeric(9,2) NOT NULL,
 primary key (E_ID));
 
 create table store_departments(
@@ -68,9 +68,5 @@ E_ID int,
 primary key (dept_ID, E_ID),
 foreign key (dept_ID) references department(dept_ID),
 foreign key (E_ID) references employee(E_ID));
-
-
-
-
 
 
