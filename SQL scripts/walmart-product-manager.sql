@@ -3,13 +3,13 @@ create database Walmart_Product_Manager;
 use Walmart_Product_Manager;
 
 create table department(
-dept_ID char(5),
+dept_ID int,
 dept_name varchar(20) NOT NULL,
 primary key (dept_ID));
 
 create table product(
 SKU int,
-dept_ID char(5),
+dept_ID int,
 prod_name varchar(20) NOT NULL,
 size int NOT NULL,
 unit ENUM('oz', 'lb', 'pcs') NOT NULL,
@@ -43,7 +43,7 @@ primary key (E_ID));
 
 create table store_departments(
 store_ID int,
-dept_id char(5), 
+dept_id int, 
 primary key (store_ID, dept_ID),
 foreign key (store_ID) references store(store_ID),
 foreign key (dept_ID) references department(dept_ID));
@@ -63,7 +63,7 @@ foreign key (brand_ID) references brand(brand_ID),
 foreign key (SKU) references product(SKU));
 
 create table works_in(
-dept_ID char(5), 
+dept_ID int, 
 E_ID int,
 primary key (dept_ID, E_ID),
 foreign key (dept_ID) references department(dept_ID),
