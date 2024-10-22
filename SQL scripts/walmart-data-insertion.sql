@@ -1,7 +1,7 @@
 -- Insert initial data for walmart product management DB
 
 -- (int, varchar)
-insert into department(dept_ID, debt_name)
+insert into department(dept_ID, dept_name)
 value(1, 'Pantry'),
 (2, 'Breakfast & Cereal'),
 (3, 'Beverages'),
@@ -19,8 +19,7 @@ value(1, 'Pantry'),
 
 -- (int, char, varchar, int, enum, numeric)
 insert into product(SKU, dept_ID, prod_name, size, unit, price)
-value(),
-();
+value( 110895339, 10, 'Marketside Roasted Red Pepper Hummus', 10, 'oz', 2.67);
 
 -- (int, int, varchar, varchar, varchar, int)
 insert into store(store_ID, street_num, street_name, city, state, zip_code)

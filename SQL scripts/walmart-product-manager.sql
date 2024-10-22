@@ -1,3 +1,4 @@
+-- drop database Walmart_Product_Manager;
 create database Walmart_Product_Manager;
 
 use Walmart_Product_Manager;
@@ -10,7 +11,7 @@ primary key (dept_ID));
 create table product(
 SKU int,
 dept_ID int,
-prod_name varchar(20) NOT NULL,
+prod_name varchar(50) NOT NULL,
 size int NOT NULL,
 unit ENUM('oz', 'lb', 'pcs') NOT NULL,
 price numeric(8,2) NOT NULL,
