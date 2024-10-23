@@ -1,5 +1,4 @@
 -- Insert initial data for walmart product management DB
-
 -- (int, varchar)
 insert into department(dept_ID, dept_name)
 value(1, 'Pantry'),
@@ -15,9 +14,11 @@ value(1, 'Pantry'),
 (11, 'Coffee'),
 (12, 'Baking'),
 (13, 'Fresh Produce'),
-(14, 'Alchohol');
+(14, 'Alchohol')
+-- -----------------------------------------------------------------
+;
 
--- (int, char, varchar, int, enum, numeric)
+-- (int, char, varchar, int, enum('oz', 'lb', 'pcs'), numeric)
 insert into product(SKU, dept_ID, prod_name, size, unit, price)
 value( 110895339, 10, 'Marketside Roasted Red Pepper Hummus', 10, 'oz', 2.67),
 ( 105455228, 10, 'Marketside Roasted Garlic Hummus', 10, 'oz', 2.67),
@@ -33,7 +34,9 @@ value( 110895339, 10, 'Marketside Roasted Red Pepper Hummus', 10, 'oz', 2.67),
 ( 764726416, 10, "Marketside Pine Nut Hummus", 10, 'oz', 2.67),
 ( 439259695, 10, "Marketside Cantina Style Salsa", 16, 'oz', 2.86),
 ( 825414671, 10, "Fresh Cravings Everything Bagel Hummus", 10, 'oz', 3.27),
-( 437850228, 10, "Fresh Cravings Roasted Garlic Hummus", 10, 'oz', 3.27);
+( 437850228, 10, "Fresh Cravings Roasted Garlic Hummus", 10, 'oz', 3.27)
+-- ------------------------------------------------------------------------
+;
 
 -- (int, int, varchar(30), varchar(30), varchar(30), int)
 INSERT INTO store (store_ID, street_num, street_name, city, state, zip_code)
@@ -46,18 +49,24 @@ VALUES (1, 100, 'Main St', 'Providence', 'RI', 02903),
 (7, 678, 'Broad St', 'Pittsburgh', 'PA', 15222),
 (8, 101, 'Liberty St', 'Newport', 'RI', 02840),
 (9, 89, 'Beacon St', 'Newton', 'MA', 02458),
-(10, 300, 'Walnut St', 'Harrisburg', 'PA', 17101);
+(10, 300, 'Walnut St', 'Harrisburg', 'PA', 17101)
+-- --------------------------------------------------------
+;
 
 -- (char(5), varchar(20), bool)
 insert into brand(brand_ID, brand_name, chain_exclusive)
 value("MARKT", "Marketside", true),
 ("PRICE", "Price's Dairy", false),
 ("DEANS", "Dean's", false),
-("FRESH", "Fresh Cravings", false);
+("FRESH", "Fresh Cravings", false)
+-- -----------------------------------------------------------
+;
 
 -- (int, int, varchar, enum('Manager', 'Cashier', 'Stocker'), enum('Hourly', 'Salary'), numeric)
 insert into employee(E_ID, M_ID, e_name, position, payroll_type, pay_rate)
-value(1, null, "Bob Boberts", "Manager", "Salary", 65000.00);
+value(1, null, "Bob Boberts", "Manager", "Salary", 65000.00)
+-- ------------------------------------------------------------
+;
 
 -- (int, int)
 insert into store_departments(store_ID, dept_ID)
@@ -70,7 +79,9 @@ value(1, 10),
 (7, 10),
 (8, 10),
 (9, 10),
-(10, 10);
+(10, 10)
+-- -------------------------------------------------
+;
 
 -- (int, int)
 insert into stocks(store_ID, SKU)
@@ -83,7 +94,9 @@ value(1, 110895339),(1, 105455228),(1, 128642379),(1, 366126367),(1, 160090316),
 (7, 110895339),(7, 105455228),(7, 128642379),(7, 366126367),(7, 160090316),(7, 174071300),(7, 10294995),(7, 37915367),(7, 482903957),(7, 538183292),(7, 628355959),(7, 764726416),(7, 439259695),(7, 825414671),(7, 437850228),
 (8, 110895339),(8, 105455228),(8, 128642379),(8, 366126367),(8, 160090316),(8, 174071300),(8, 10294995),(8, 37915367),(8, 482903957),(8, 538183292),(8, 628355959),(8, 764726416),(8, 439259695),(8, 825414671),(8, 437850228),
 (9, 110895339),(9, 105455228),(9, 128642379),(9, 366126367),(9, 160090316),(9, 174071300),(9, 10294995),(9, 37915367),(9, 482903957),(9, 538183292),(9, 628355959),(9, 764726416),(9, 439259695),(9, 825414671),(9, 437850228),
-(10, 110895339),(10, 105455228),(10, 128642379),(10, 366126367),(10, 160090316),(10, 174071300),(10, 10294995),(10, 37915367),(10, 482903957),(10, 538183292),(10, 628355959),(10, 764726416),(10, 439259695),(10, 825414671),(10, 437850228);
+(10, 110895339),(10, 105455228),(10, 128642379),(10, 366126367),(10, 160090316),(10, 174071300),(10, 10294995),(10, 37915367),(10, 482903957),(10, 538183292),(10, 628355959),(10, 764726416),(10, 439259695),(10, 825414671),(10, 437850228)
+-- -------------------------------------------------------------------------
+;
 
 
 -- (char(5), int)
@@ -102,9 +115,12 @@ value("MARKT", 110895339),
 ("MARKT", 764726416),
 ("MARKT", 439259695),
 ("FRESH", 825414671),
-("FRESH", 437850228);
+("FRESH", 437850228)
+-- -------------------------------------------------------------
+;
 
 
 -- (int, int)
 insert into works_in(dept_ID, E_ID)
-value(10, 1);
+value(10, 1)
+-- -------------------------------------------------------------;
