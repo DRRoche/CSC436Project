@@ -3,7 +3,7 @@ from product;
 
 -- unit price view
 create view unit_price as
-select *, round(price / size, 2) as unit_price
+select SKU, dept_id, prod_name, size, price, round(price / size, 2) as unit_price, unit
 from product;
 
 select *
