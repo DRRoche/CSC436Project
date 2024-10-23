@@ -21,9 +21,9 @@ foreign key (dept_ID) references department(dept_ID));
 create table store(
 store_ID int,
 street_num int NOT NULL,
-street_name varchar(20) NOT NULL,
-city varchar(20) NOT NULL,
-state varchar(20) NOT NULL,
+street_name varchar(30) NOT NULL,
+city varchar(30) NOT NULL,
+state varchar(30) NOT NULL,
 zip_code int NOT NULL,
 primary key (store_ID));
 
