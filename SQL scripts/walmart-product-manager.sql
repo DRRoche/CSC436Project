@@ -11,7 +11,7 @@ primary key (dept_ID));
 create table product(
 SKU int,
 dept_ID int,
-prod_name varchar(50) NOT NULL,
+prod_name varchar(100) NOT NULL,
 size int NOT NULL,
 unit ENUM('oz', 'lb', 'pcs') NOT NULL,
 price numeric(8,2) NOT NULL,
