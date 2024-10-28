@@ -46,4 +46,14 @@ where store_id = 4;
 select *
 from unit_price
 where prod_name like "%can%";
-
+ 
+ -- update price
+ 
+ 
+ -- find employees who make over X and are hourly working at Y store
+ 
+ 
+ -- find everyone who works directly under X 
+ 
+ 
+ -- find everyone who works under X(including who work under those who work directly under them) 
