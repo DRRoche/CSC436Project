@@ -27,7 +27,7 @@ select * from prod_list_by_store;
 
 -- get all products stocked at every store
 with store_cnt(total) as (select count(*) from store) 
-select *
+select distinct prod_name, SKU, dept_id, price, unit_price, unit
 from prod_list_by_store
 where SKU = any(
 	select SKU
