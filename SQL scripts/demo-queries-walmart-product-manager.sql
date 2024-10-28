@@ -57,3 +57,9 @@ where prod_name like "%can%";
  
  
  -- find everyone who works under X(including who work under those who work directly under them) 
+ 
+ 
+ -- find everyone who works at X store in Y dept
+ 
+ 
+ 
