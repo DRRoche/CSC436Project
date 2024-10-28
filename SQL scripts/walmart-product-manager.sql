@@ -72,4 +72,3 @@ foreign key (dept_ID) references department(dept_ID),
 foreign key (E_ID) references employee(E_ID),
 foreign key (store_ID) references store(store_ID));
 
-
