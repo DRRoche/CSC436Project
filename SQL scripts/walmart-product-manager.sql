@@ -33,15 +33,6 @@ brand_name varchar(50) NOT NULL,
 chain_exclusive bool,
 primary key (brand_ID));
 
-create table employee(
-E_ID int,
-M_ID int,
-e_name varchar(20) NOT NULL,
-position ENUM('Manager', 'Cashier', 'Stocker') NOT NULL,
-payroll_type ENUM('Hourly', 'Salary') NOT NULL,
-pay_rate numeric(9,2) NOT NULL,
-primary key (E_ID));
-
 create table store_departments(
 store_ID int,
 dept_id int, 
@@ -63,11 +54,22 @@ primary key (brand_ID, SKU),
 foreign key (brand_ID) references brand(brand_ID),
 foreign key (SKU) references product(SKU));
 
+create table employee(
+E_ID int,
+M_ID int,
+e_name varchar(20) NOT NULL,
+position ENUM('Store Manager', 'Assistant Manager', 'Dept Manager', 'Cashier', 'Stocker') NOT NULL,
+payroll_type ENUM('Hourly', 'Salary') NOT NULL,
+pay_rate numeric(9,2) NOT NULL,
+primary key (E_ID));
+
 create table works_in(
 dept_ID int, 
 E_ID int,
-primary key (dept_ID, E_ID),
+store_ID int,
+primary key (dept_ID, E_ID, store_ID),
 foreign key (dept_ID) references department(dept_ID),
-foreign key (E_ID) references employee(E_ID));
+foreign key (E_ID) references employee(E_ID),
+foreign key (store_ID) references store(store_ID));
 
 

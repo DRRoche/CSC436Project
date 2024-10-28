@@ -8,3 +8,12 @@ from product;
 
 select *
 from unit_price;
+
+select * from employee;
+
+select e_id, e_name
+from employee
+where e_id not in(
+	select m_id
+	from employee
+	where m_id is not null);
