@@ -29,8 +29,8 @@ select * from prod_list_by_store;
 with store_cnt(total) as (select count(*) from store) 
 select *
 from prod_list_by_store
-where exists(
-	select SKU, cnt
+where SKU = any(
+	select SKU
     from(
 		select SKU, count(store_id) as cnt 
         from prod_list_by_store 
