@@ -101,5 +101,8 @@ select *
 from employee
 left outer join works_in on employee.e_id = works_in.e_id
 where store_id = 1 and dept_id = 11;
- 
- 
+
+-- find everyone under a position level (ignore)
+select * 
+from employee
+where position > 3;
