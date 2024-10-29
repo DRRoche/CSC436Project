@@ -49,6 +49,7 @@ set price = price + (price * .07)
 where dept_id = 11;
 select * from unit_price where prod_name like "%coffee%";
 
+-- *******************************************************************************************************************************
 -- alter table constraint
 alter table stocks
 drop foreign key stocks_ibfk_2;
@@ -67,6 +68,7 @@ foreign key (SKU) references product(SKU) on delete cascade;
 -- remove product
 delete from product
 where SKU = 129570465;
+-- *******************************************************************************************************************************
  
 -- find employees who make over X and are hourly working at Y store
 select *
