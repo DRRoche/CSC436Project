@@ -72,3 +72,15 @@ foreign key (dept_ID) references department(dept_ID),
 foreign key (E_ID) references employee(E_ID),
 foreign key (store_ID) references store(store_ID));
 
+-- --------------------------------------------------- Views ---------------------------------------------------------------------------
+-- creates view for products with unit price
+create view unit_price as
+select SKU, dept_id, prod_name, size, price, round(price / size, 2) as unit_price, unit
+from product;
+
+-- creates a view with products listed uniquely to stores
+create view prod_list_by_store as
+select prod_name, SKU, unit_price.dept_ID, price, unit_price, unit, store.store_id
+from unit_price
+natural join  stocks natural join store
+order by prod_name;

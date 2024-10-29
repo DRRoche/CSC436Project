@@ -9,17 +9,6 @@ select * from stocks;
 select * from store_departments;
 select * from works_in;
 
--- creates view for products with unit price
-create view unit_price as
-select SKU, dept_id, prod_name, size, price, round(price / size, 2) as unit_price, unit
-from product;
-
--- creates a view with products listed uniquely to stores
-create view prod_list_by_store as
-select prod_name, SKU, unit_price.dept_ID, price, unit_price, unit, store.store_id
-from unit_price
-natural join  stocks natural join store
-order by prod_name;
 
 -- display views
 select * from unit_price;
@@ -43,23 +32,55 @@ from prod_list_by_store
 where store_id = 4;
 
 -- find products containing <string>
+select * 
+from unit_price 
+where prod_name like "%coffee%";
+ 
+-- update price single item
+select * from unit_price where prod_name like "%coffee%";
+update product
+set price = price + (price * .07)
+where sku = 114669629;
+select * from unit_price where prod_name like "%coffee%";
+ 
+-- update price for whole dept
+select * from unit_price where prod_name like "%coffee%";
+update product
+set price = price + (price * .07)
+where dept_id = 11;
+select * from unit_price where prod_name like "%coffee%";
+ 
+-- find employees who make over X and are hourly working at Y store
 select *
-from unit_price
-where prod_name like "%can%";
+from employee
+left outer join works_in on employee.e_id = works_in.e_id
+where payroll_type = "Hourly" 
+and pay_rate > 15.00 
+and store_id = 3;
  
- -- update price
- 
- 
- -- find employees who make over X and are hourly working at Y store
- 
- 
- -- find everyone who works directly under X 
- 
- 
- -- find everyone who works under X(including who work under those who work directly under them) 
+-- find everyone who works directly under X 
+select *
+from employee
+where m_id = 2;
  
  
- -- find everyone who works at X store in Y dept
+-- find everyone who works under X(2 levels deep)** 
+with emp as (select e_id from employee where e_id = 42) 
+select *
+from employee
+where m_id = (select * from emp)
+union
+select *
+from employee
+where m_id = any(
+	select e_id
+	from employee
+	where m_id = (select * from emp));
  
+-- find everyone who works at X store in Y dept
+ select *
+ from employee
+ left outer join works_in on employee.e_id = works_in.e_id
+ where dept_id = 11;
  
  
