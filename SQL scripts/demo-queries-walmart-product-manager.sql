@@ -9,7 +9,6 @@ select * from stocks;
 select * from store_departments;
 select * from works_in;
 
-
 -- display views
 select * from unit_price;
 select * from prod_list_by_store;
@@ -49,6 +48,25 @@ update product
 set price = price + (price * .07)
 where dept_id = 11;
 select * from unit_price where prod_name like "%coffee%";
+
+-- alter table constraint
+alter table stocks
+drop foreign key stocks_ibfk_2;
+
+alter table stocks
+add constraint stocks_ibfk_2
+foreign key (SKU) references product(SKU) on delete cascade;
+
+alter table manufactures
+drop foreign key manufactures_ibfk_2;
+
+alter table manufactures
+add constraint manufactures_ibfk_2
+foreign key (SKU) references product(SKU) on delete cascade;
+
+-- remove product
+delete from product
+where SKU = 129570465;
  
 -- find employees who make over X and are hourly working at Y store
 select *
@@ -62,7 +80,6 @@ and store_id = 3;
 select *
 from employee
 where m_id = 2;
- 
  
 -- find everyone who works under X(2 levels deep)** 
 with emp as (select e_id from employee where e_id = 42) 
@@ -78,9 +95,9 @@ where m_id = any(
 	where m_id = (select * from emp));
  
 -- find everyone who works at X store in Y dept
- select *
- from employee
- left outer join works_in on employee.e_id = works_in.e_id
- where dept_id = 11;
+select *
+from employee
+left outer join works_in on employee.e_id = works_in.e_id
+where store_id = 1 and dept_id = 11;
  
  
