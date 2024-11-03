@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            prod_search = new Button();
+            SuspendLayout();
+            // 
+            // prod_search
+            // 
+            prod_search.Location = new Point(319, 76);
+            prod_search.Name = "prod_search";
+            prod_search.Size = new Size(148, 44);
+            prod_search.TabIndex = 0;
+            prod_search.Text = "Product Search";
+            prod_search.UseVisualStyleBackColor = true;
+            prod_search.Click += ProdSearchButton;
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(prod_search);
+            Name = "Form1";
+            Text = "Form1";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button prod_search;
     }
 }
