@@ -63,7 +63,7 @@
             button1.TabIndex = 2;
             button1.Text = "Search";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += Product_Search_Load;
+            button1.Click += button1_Click;
             // 
             // radioButton1
             // 
@@ -113,7 +113,7 @@
             // radioButton4
             // 
             radioButton4.AutoSize = true;
-            radioButton4.Location = new Point(377, 354);
+            radioButton4.Location = new Point(351, 342);
             radioButton4.Name = "radioButton4";
             radioButton4.Size = new Size(94, 19);
             radioButton4.TabIndex = 7;
@@ -133,7 +133,6 @@
             Controls.Add(dataGridView1);
             Name = "Product_Search";
             Text = "Product_Search";
-            Load += Product_Search_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace CSC436_Walmart_Management_System___App
 {
@@ -14,27 +9,35 @@ namespace CSC436_Walmart_Management_System___App
     {
         private DatabaseHelper dbHelper;
 
-        public Product_Search()
+        public Product_Search(DatabaseHelper existingDbHelper)
         {
             InitializeComponent();
-            // Initialize DatabaseHelper with your database details
-            dbHelper = new DatabaseHelper();
-            LoadData("SELECT * FROM unit_price");
+            dbHelper = existingDbHelper;
+            LoadData(""); // Load initial data with an empty search
+
+            // Explicitly link FormClosing event
+            this.FormClosing += Product_Search_FormClosing;
         }
 
-        private void LoadData(string query)
+        private void LoadData(string searchTxt)
         {
-            DataTable dataTable = dbHelper.ExecuteQuery(query);
+            string query = "SELECT * FROM unit_price WHERE prod_name LIKE @prod_name";
+            MySqlCommand cmd = new MySqlCommand(query);
+            cmd.Parameters.AddWithValue("@prod_name", "%" + searchTxt + "%");
+
+            DataTable dataTable = dbHelper.ExecuteQuery(cmd);
             dataGridView1.DataSource = dataTable;
         }
 
-        private void Product_Search_Load(object sender, EventArgs e)
+        private void Product_Search_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string searchTxt = searchBox.Text;
-            string query = "SELECT * FROM unit_price where prod_name like '%" + searchTxt + "%'";
-            LoadData(query);
+            dbHelper.Dispose(); // Dispose of the DatabaseHelper
+            Application.Exit(); // Forcefully exit the application
+        }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadData(searchBox.Text);
         }
     }
 }
