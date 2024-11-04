@@ -1,6 +1,6 @@
 ﻿namespace CSC436_Walmart_Management_System___App
 {
-    partial class Form1
+    partial class MainMenu
     {
         /// <summary>
         ///  Required designer variable.

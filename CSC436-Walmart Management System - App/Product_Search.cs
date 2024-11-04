@@ -21,11 +21,24 @@ namespace CSC436_Walmart_Management_System___App
 
         private void LoadData(string searchTxt)
         {
-            string query = "SELECT * FROM unit_price WHERE prod_name LIKE @prod_name";
-            MySqlCommand cmd = new MySqlCommand(query);
-            cmd.Parameters.AddWithValue("@prod_name", "%" + searchTxt + "%");
+            MySqlCommand cmd;
+            DataTable dataTable = null;
 
-            DataTable dataTable = dbHelper.ExecuteQuery(cmd);
+            if (exactlyRad.Checked == true)
+            {
+                string query = "SELECT * FROM unit_price WHERE prod_name LIKE @prod_name";
+                cmd = new MySqlCommand(query);
+                cmd.Parameters.AddWithValue("@prod_name", "%" + searchTxt + "%");
+                dataTable = dbHelper.ExecuteQuery(cmd);
+            }
+            else if (anyRad.Checked == true)
+            {
+
+            }
+            else if (allRad.Checked == true) 
+            {
+                
+            }
             dataGridView1.DataSource = dataTable;
         }
 

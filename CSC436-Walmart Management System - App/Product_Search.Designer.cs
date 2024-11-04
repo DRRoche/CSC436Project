@@ -31,13 +31,13 @@
             dataGridView1 = new DataGridView();
             searchBox = new TextBox();
             button1 = new Button();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            radioButton3 = new RadioButton();
-            groupBox1 = new GroupBox();
+            exactlyRad = new RadioButton();
+            anyRad = new RadioButton();
+            allRad = new RadioButton();
+            searchMatchChoiceBox = new GroupBox();
             radioButton4 = new RadioButton();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            groupBox1.SuspendLayout();
+            searchMatchChoiceBox.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
@@ -65,50 +65,49 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // radioButton1
+            // exactlyRad
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(6, 22);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(94, 19);
-            radioButton1.TabIndex = 3;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "radioButton1";
-            radioButton1.UseVisualStyleBackColor = true;
+            exactlyRad.AutoSize = true;
+            exactlyRad.Checked = true;
+            exactlyRad.Location = new Point(6, 22);
+            exactlyRad.Name = "exactlyRad";
+            exactlyRad.Size = new Size(62, 19);
+            exactlyRad.TabIndex = 3;
+            exactlyRad.TabStop = true;
+            exactlyRad.Text = "Exactly";
+            exactlyRad.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // anyRad
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(106, 22);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(94, 19);
-            radioButton2.TabIndex = 4;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "radioButton2";
-            radioButton2.UseVisualStyleBackColor = true;
+            anyRad.AutoSize = true;
+            anyRad.Location = new Point(106, 22);
+            anyRad.Name = "anyRad";
+            anyRad.Size = new Size(46, 19);
+            anyRad.TabIndex = 4;
+            anyRad.Text = "Any";
+            anyRad.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // allRad
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(203, 22);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(94, 19);
-            radioButton3.TabIndex = 5;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "radioButton3";
-            radioButton3.UseVisualStyleBackColor = true;
+            allRad.AutoSize = true;
+            allRad.Location = new Point(203, 22);
+            allRad.Name = "allRad";
+            allRad.Size = new Size(39, 19);
+            allRad.TabIndex = 5;
+            allRad.Text = "All";
+            allRad.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // searchMatchChoiceBox
             // 
-            groupBox1.Controls.Add(radioButton1);
-            groupBox1.Controls.Add(radioButton3);
-            groupBox1.Controls.Add(radioButton2);
-            groupBox1.Location = new Point(24, 330);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(303, 47);
-            groupBox1.TabIndex = 6;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
+            searchMatchChoiceBox.Controls.Add(exactlyRad);
+            searchMatchChoiceBox.Controls.Add(allRad);
+            searchMatchChoiceBox.Controls.Add(anyRad);
+            searchMatchChoiceBox.Location = new Point(24, 330);
+            searchMatchChoiceBox.Name = "searchMatchChoiceBox";
+            searchMatchChoiceBox.Size = new Size(303, 47);
+            searchMatchChoiceBox.TabIndex = 6;
+            searchMatchChoiceBox.TabStop = false;
+            searchMatchChoiceBox.Text = "Match:";
             // 
             // radioButton4
             // 
@@ -127,15 +126,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(radioButton4);
-            Controls.Add(groupBox1);
+            Controls.Add(searchMatchChoiceBox);
             Controls.Add(button1);
             Controls.Add(searchBox);
             Controls.Add(dataGridView1);
             Name = "Product_Search";
             Text = "Product_Search";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            searchMatchChoiceBox.ResumeLayout(false);
+            searchMatchChoiceBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -145,10 +144,10 @@
         private DataGridView dataGridView1;
         private TextBox searchBox;
         private Button button1;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton3;
-        private GroupBox groupBox1;
+        private RadioButton exactlyRad;
+        private RadioButton anyRad;
+        private RadioButton allRad;
+        private GroupBox searchMatchChoiceBox;
         private RadioButton radioButton4;
     }
 }
