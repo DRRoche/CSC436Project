@@ -1,0 +1,53 @@
+# Ignore build output directories
+bin/
+obj/
+
+# Ignore Visual Studio specific files
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.psess
+*.vspx
+
+# Ignore NuGet packages
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Ignore user-specific project settings
+*.csproj.user
+*.dbmdl
+*.opendb
+*.pidb
+*.log
+
+# Ignore Resharper files
+_ReSharper*/
+*.DotSettings.user
+
+# Ignore JetBrains Rider files
+.idea/
+
+# Ignore files created by Visual Studio's Test Results
+TestResults/
+
+# Ignore publish output
+publish/
+*.publishsettings
+
+# Ignore sensitive configuration files (if applicable)
+appsettings.json
+appsettings.*.json
+
+# Ignore MySQL Connector DLLs if locally added instead of using NuGet
+MySql.Data.dll
+
+# Ignore other IDE-specific or OS files
+.DS_Store
+Thumbs.db
+*.swp
