@@ -2,6 +2,8 @@
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace CSC436_Walmart_Management_System___App
 {
@@ -17,6 +19,15 @@ namespace CSC436_Walmart_Management_System___App
 
             // Explicitly link FormClosing event
             this.FormClosing += Product_Search_FormClosing;
+        }
+
+        private void validateNumericKeypress(object sender, KeyPressEventArgs e)
+        {
+            // Check if the pressed key is not a digit and not a control key (e.g., backspace)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && !(e.KeyChar == '.' ))
+            {
+                e.Handled = true; // Reject the input
+            }
         }
 
         private string[] strToArray(string input)
@@ -40,23 +51,22 @@ namespace CSC436_Walmart_Management_System___App
             else if (anyRad.Checked)
             {
                 // Construct query for any word in searchArr
-                
-                for (int i = 0; i < searchArr.Length; i++)
-                {
-                    conditions.Add("prod_name LIKE @word" + i);
-                    cmd.Parameters.AddWithValue("@word" + i, "%" + searchArr[i] + "%");
-                }
-                query += string.Join(" OR ", conditions);
+                query = ConstructLikeQuery(searchArr, query, cmd, conditions, " OR ");
             }
             else if (allRad.Checked)
             {
                 // Construct query for all words in searchArr
-                for (int i = 0; i < searchArr.Length; i++)
-                {
-                    conditions.Add("prod_name LIKE @word" + i);
-                    cmd.Parameters.AddWithValue("@word" + i, "%" + searchArr[i] + "%");
-                }
-                query += string.Join(" AND ", conditions);
+                query = ConstructLikeQuery(searchArr, query, cmd, conditions, " AND ");
+            }
+            if (!string.IsNullOrEmpty(minTxt?.Text))
+            {
+                query += " AND price >= @min_price";
+                cmd.Parameters.AddWithValue("@min_price", minTxt.Text);
+            }
+            if (!string.IsNullOrEmpty(maxTxt?.Text))
+            {
+                query += " AND price <= @max_price";
+                cmd.Parameters.AddWithValue("@max_price", maxTxt.Text);
             }
 
             cmd.CommandText = query; // Set the command text after building the query
@@ -64,6 +74,20 @@ namespace CSC436_Walmart_Management_System___App
             // Execute the query and bind the results to the DataGridView
             dataTable = dbHelper.ExecuteQuery(cmd);
             dataGridView1.DataSource = dataTable;
+
+            static string ConstructLikeQuery(string[] searchArr, string query, MySqlCommand cmd, List<string> conditions, string logicOp)
+            {
+                for (int i = 0; i < searchArr.Length; i++)
+                {
+                    conditions.Add("prod_name LIKE @word" + i);
+                    cmd.Parameters.AddWithValue("@word" + i, "%" + searchArr[i] + "%");
+                }
+                query += string.Join(logicOp, conditions);
+                return query;
+            }
+
+            
+
         }
 
 
@@ -76,7 +100,7 @@ namespace CSC436_Walmart_Management_System___App
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadData(searchBox.Text);
+            LoadData(searchTxt.Text);
         }
     }
 }
