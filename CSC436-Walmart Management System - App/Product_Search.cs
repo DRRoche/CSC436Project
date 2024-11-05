@@ -19,28 +19,54 @@ namespace CSC436_Walmart_Management_System___App
             this.FormClosing += Product_Search_FormClosing;
         }
 
+        private string[] strToArray(string input)
+        {
+            return input.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
         private void LoadData(string searchTxt)
         {
-            MySqlCommand cmd;
-            DataTable dataTable = null;
+            DataTable dataTable = new DataTable();
+            string[] searchArr = strToArray(searchTxt);
+            string query = "SELECT * FROM unit_price WHERE ";
+            MySqlCommand cmd = new MySqlCommand(); // Initialize cmd here
 
-            if (exactlyRad.Checked == true)
+            if (exactlyRad.Checked)
             {
-                string query = "SELECT * FROM unit_price WHERE prod_name LIKE @prod_name";
-                cmd = new MySqlCommand(query);
+                query += "prod_name LIKE @prod_name";
                 cmd.Parameters.AddWithValue("@prod_name", "%" + searchTxt + "%");
-                dataTable = dbHelper.ExecuteQuery(cmd);
             }
-            else if (anyRad.Checked == true)
+            else if (anyRad.Checked)
             {
+                // Construct query for any word in searchArr
+                List<string> conditions = new List<string>();
+                for (int i = 0; i < searchArr.Length; i++)
+                {
+                    conditions.Add("prod_name LIKE @word" + i);
+                    cmd.Parameters.AddWithValue("@word" + i, "%" + searchArr[i] + "%");
+                }
+                query += string.Join(" OR ", conditions);
+            }
+            else if (allRad.Checked)
+            {
+                // Construct query for all words in searchArr
+                List<string> conditions = new List<string>();
+                for (int i = 0; i < searchArr.Length; i++)
+                {
+                    conditions.Add("prod_name LIKE @word" + i);
+                    cmd.Parameters.AddWithValue("@word" + i, "%" + searchArr[i] + "%");
+                }
+                query += string.Join(" AND ", conditions);
+            }
 
-            }
-            else if (allRad.Checked == true) 
-            {
-                
-            }
+            cmd.CommandText = query; // Set the command text after building the query
+
+            // Execute the query and bind the results to the DataGridView
+            dataTable = dbHelper.ExecuteQuery(cmd);
             dataGridView1.DataSource = dataTable;
         }
+
+
 
         private void Product_Search_FormClosing(object sender, FormClosingEventArgs e)
         {
