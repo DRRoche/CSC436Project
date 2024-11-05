@@ -21,7 +21,7 @@ namespace CSC436_Walmart_Management_System___App
 
         private string[] strToArray(string input)
         {
-            return input.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            return input.Split(new[] { ' ', '\t' }, StringSplitOptions.TrimEntries);
         }
 
         private void LoadData(string searchTxt)
@@ -29,7 +29,8 @@ namespace CSC436_Walmart_Management_System___App
             DataTable dataTable = new DataTable();
             string[] searchArr = strToArray(searchTxt);
             string query = "SELECT * FROM unit_price WHERE ";
-            MySqlCommand cmd = new MySqlCommand(); // Initialize cmd here
+            MySqlCommand cmd = new MySqlCommand();
+            List<string> conditions = new List<string>();
 
             if (exactlyRad.Checked)
             {
@@ -39,7 +40,7 @@ namespace CSC436_Walmart_Management_System___App
             else if (anyRad.Checked)
             {
                 // Construct query for any word in searchArr
-                List<string> conditions = new List<string>();
+                
                 for (int i = 0; i < searchArr.Length; i++)
                 {
                     conditions.Add("prod_name LIKE @word" + i);
@@ -50,7 +51,6 @@ namespace CSC436_Walmart_Management_System___App
             else if (allRad.Checked)
             {
                 // Construct query for all words in searchArr
-                List<string> conditions = new List<string>();
                 for (int i = 0; i < searchArr.Length; i++)
                 {
                     conditions.Add("prod_name LIKE @word" + i);
