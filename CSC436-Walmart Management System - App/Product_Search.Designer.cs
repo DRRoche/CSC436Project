@@ -28,16 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             dataGridView1 = new DataGridView();
-            searchBox = new TextBox();
-            button1 = new Button();
+            searchTxt = new TextBox();
+            searchBtn = new Button();
             exactlyRad = new RadioButton();
             anyRad = new RadioButton();
             allRad = new RadioButton();
             searchMatchChoiceBox = new GroupBox();
-            radioButton4 = new RadioButton();
+            groupBox1 = new GroupBox();
+            databaseHelperBindingSource = new BindingSource(components);
+            groupBox2 = new GroupBox();
+            label2 = new Label();
+            label1 = new Label();
+            maxTxt = new TextBox();
+            minTxt = new TextBox();
+            groupBox3 = new GroupBox();
+            storeList = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             searchMatchChoiceBox.SuspendLayout();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)databaseHelperBindingSource).BeginInit();
+            groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
@@ -48,22 +61,22 @@
             dataGridView1.Size = new Size(764, 270);
             dataGridView1.TabIndex = 0;
             // 
-            // searchBox
+            // searchTxt
             // 
-            searchBox.Location = new Point(24, 301);
-            searchBox.Name = "searchBox";
-            searchBox.Size = new Size(618, 23);
-            searchBox.TabIndex = 1;
+            searchTxt.Location = new Point(6, 22);
+            searchTxt.Name = "searchTxt";
+            searchTxt.Size = new Size(205, 23);
+            searchTxt.TabIndex = 1;
             // 
-            // button1
+            // searchBtn
             // 
-            button1.Location = new Point(687, 301);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 2;
-            button1.Text = "Search";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            searchBtn.Location = new Point(235, 22);
+            searchBtn.Name = "searchBtn";
+            searchBtn.Size = new Size(75, 23);
+            searchBtn.TabIndex = 2;
+            searchBtn.Text = "Search";
+            searchBtn.UseVisualStyleBackColor = true;
+            searchBtn.Click += button1_Click;
             // 
             // exactlyRad
             // 
@@ -102,52 +115,135 @@
             searchMatchChoiceBox.Controls.Add(exactlyRad);
             searchMatchChoiceBox.Controls.Add(allRad);
             searchMatchChoiceBox.Controls.Add(anyRad);
-            searchMatchChoiceBox.Location = new Point(24, 330);
+            searchMatchChoiceBox.Location = new Point(7, 51);
             searchMatchChoiceBox.Name = "searchMatchChoiceBox";
             searchMatchChoiceBox.Size = new Size(303, 47);
             searchMatchChoiceBox.TabIndex = 6;
             searchMatchChoiceBox.TabStop = false;
             searchMatchChoiceBox.Text = "Match:";
             // 
-            // radioButton4
+            // groupBox1
             // 
-            radioButton4.AutoSize = true;
-            radioButton4.Location = new Point(351, 342);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(94, 19);
-            radioButton4.TabIndex = 7;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "radioButton4";
-            radioButton4.UseVisualStyleBackColor = true;
+            groupBox1.Controls.Add(searchTxt);
+            groupBox1.Controls.Add(searchMatchChoiceBox);
+            groupBox1.Controls.Add(searchBtn);
+            groupBox1.Location = new Point(24, 288);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(322, 112);
+            groupBox1.TabIndex = 7;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Product name";
+            // 
+            // databaseHelperBindingSource
+            // 
+            databaseHelperBindingSource.DataSource = typeof(DatabaseHelper);
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(label1);
+            groupBox2.Controls.Add(maxTxt);
+            groupBox2.Controls.Add(minTxt);
+            groupBox2.Location = new Point(361, 288);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(171, 112);
+            groupBox2.TabIndex = 8;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Price";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(135, 15);
+            label2.Name = "label2";
+            label2.Size = new Size(30, 15);
+            label2.TabIndex = 3;
+            label2.Text = "Max";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(6, 15);
+            label1.Name = "label1";
+            label1.Size = new Size(28, 15);
+            label1.TabIndex = 2;
+            label1.Text = "Min";
+            // 
+            // maxTxt
+            // 
+            maxTxt.Location = new Point(88, 33);
+            maxTxt.Name = "maxTxt";
+            maxTxt.Size = new Size(77, 23);
+            maxTxt.TabIndex = 1;
+            maxTxt.KeyPress += validateNumericKeypress;
+            // 
+            // minTxt
+            // 
+            minTxt.Location = new Point(6, 33);
+            minTxt.Name = "minTxt";
+            minTxt.Size = new Size(77, 23);
+            minTxt.TabIndex = 0;
+            minTxt.KeyPress += validateNumericKeypress;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(storeList);
+            groupBox3.Location = new Point(538, 288);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(135, 112);
+            groupBox3.TabIndex = 9;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Store";
+            // 
+            // storeList
+            // 
+            storeList.DropDownStyle = ComboBoxStyle.DropDownList;
+            storeList.FormattingEnabled = true;
+            storeList.Location = new Point(8, 23);
+            storeList.Name = "storeList";
+            storeList.Size = new Size(121, 23);
+            storeList.TabIndex = 0;
             // 
             // Product_Search
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(radioButton4);
-            Controls.Add(searchMatchChoiceBox);
-            Controls.Add(button1);
-            Controls.Add(searchBox);
+            Controls.Add(groupBox3);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
             Controls.Add(dataGridView1);
             Name = "Product_Search";
             Text = "Product_Search";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             searchMatchChoiceBox.ResumeLayout(false);
             searchMatchChoiceBox.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)databaseHelperBindingSource).EndInit();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private DataGridView dataGridView1;
-        private TextBox searchBox;
-        private Button button1;
+        private TextBox searchTxt;
+        private Button searchBtn;
         private RadioButton exactlyRad;
         private RadioButton anyRad;
         private RadioButton allRad;
         private GroupBox searchMatchChoiceBox;
-        private RadioButton radioButton4;
+        private GroupBox groupBox1;
+        private BindingSource databaseHelperBindingSource;
+        private GroupBox groupBox2;
+        private TextBox maxTxt;
+        private TextBox minTxt;
+        private Label label2;
+        private Label label1;
+        private GroupBox groupBox3;
+        private ComboBox storeList;
     }
 }

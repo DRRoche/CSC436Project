@@ -40,6 +40,29 @@ public class DatabaseHelper : IDisposable
         return dataTable;
     }
 
+    public List<int> GetStoreIDs()
+    {
+        List<int> storeIDs = new List<int>();
+        string query = "SELECT store_id FROM store";
+
+        using (MySqlConnection conn = new MySqlConnection(connectionString))
+        {
+            conn.Open();
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            {
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        storeIDs.Add(reader.GetInt32("store_id"));
+                    }
+                }
+            }
+        }
+
+        return storeIDs;
+    }
+
     public void Dispose()
     {
         if (conn != null && conn.State == ConnectionState.Open)
