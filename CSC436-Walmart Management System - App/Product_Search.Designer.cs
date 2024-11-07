@@ -43,11 +43,15 @@
             label1 = new Label();
             maxTxt = new TextBox();
             minTxt = new TextBox();
+            groupBox3 = new GroupBox();
+            storeList = new ComboBox();
+            debugLbl = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             searchMatchChoiceBox.SuspendLayout();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)databaseHelperBindingSource).BeginInit();
             groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
@@ -182,11 +186,41 @@
             minTxt.TabIndex = 0;
             minTxt.KeyPress += validateNumericKeypress;
             // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(storeList);
+            groupBox3.Location = new Point(538, 288);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(135, 112);
+            groupBox3.TabIndex = 9;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Store";
+            // 
+            // storeList
+            // 
+            storeList.DropDownStyle = ComboBoxStyle.DropDownList;
+            storeList.FormattingEnabled = true;
+            storeList.Location = new Point(8, 23);
+            storeList.Name = "storeList";
+            storeList.Size = new Size(121, 23);
+            storeList.TabIndex = 0;
+            // 
+            // debugLbl
+            // 
+            debugLbl.AutoSize = true;
+            debugLbl.Location = new Point(687, 328);
+            debugLbl.Name = "debugLbl";
+            debugLbl.Size = new Size(38, 15);
+            debugLbl.TabIndex = 10;
+            debugLbl.Text = "label3";
+            // 
             // Product_Search
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(debugLbl);
+            Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(dataGridView1);
@@ -200,7 +234,9 @@
             ((System.ComponentModel.ISupportInitialize)databaseHelperBindingSource).EndInit();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -219,5 +255,8 @@
         private TextBox minTxt;
         private Label label2;
         private Label label1;
+        private GroupBox groupBox3;
+        private ComboBox storeList;
+        private Label debugLbl;
     }
 }
