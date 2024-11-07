@@ -45,7 +45,6 @@
             minTxt = new TextBox();
             groupBox3 = new GroupBox();
             storeList = new ComboBox();
-            debugLbl = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             searchMatchChoiceBox.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -205,21 +204,11 @@
             storeList.Size = new Size(121, 23);
             storeList.TabIndex = 0;
             // 
-            // debugLbl
-            // 
-            debugLbl.AutoSize = true;
-            debugLbl.Location = new Point(687, 328);
-            debugLbl.Name = "debugLbl";
-            debugLbl.Size = new Size(38, 15);
-            debugLbl.TabIndex = 10;
-            debugLbl.Text = "label3";
-            // 
             // Product_Search
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(debugLbl);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -236,7 +225,6 @@
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -257,6 +245,5 @@
         private Label label1;
         private GroupBox groupBox3;
         private ComboBox storeList;
-        private Label debugLbl;
     }
 }
