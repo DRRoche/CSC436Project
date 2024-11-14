@@ -121,5 +121,23 @@ namespace CSC436_Walmart_Management_System___App
         {
             LoadData(searchTxt.Text);
         }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Ensure a valid row is clicked
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.Rows[e.RowIndex];
+
+                // Example: Extracting data from columns in the selected row
+                int SKU = Convert.ToInt32(selectedRow.Cells["SKU"].Value);
+                string productName = selectedRow.Cells["prod_name"].Value.ToString();
+                decimal price = Convert.ToDecimal(selectedRow.Cells["price"].Value);
+
+                // Create a new form and pass the data to it
+                ProductDetailsForm detailsForm = new ProductDetailsForm(SKU, productName, price, dbHelper);
+                detailsForm.ShowDialog();  // Show as a dialog box or use Show() if you don't want it modal
+            }
+        }
     }
 }
