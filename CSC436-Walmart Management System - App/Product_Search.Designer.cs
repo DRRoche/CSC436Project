@@ -60,6 +60,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(764, 270);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // searchTxt
             // 
@@ -154,7 +155,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(135, 15);
+            label2.Location = new Point(135, 48);
             label2.Name = "label2";
             label2.Size = new Size(30, 15);
             label2.TabIndex = 3;
@@ -163,7 +164,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(6, 15);
+            label1.Location = new Point(6, 48);
             label1.Name = "label1";
             label1.Size = new Size(28, 15);
             label1.TabIndex = 2;
@@ -171,7 +172,7 @@
             // 
             // maxTxt
             // 
-            maxTxt.Location = new Point(88, 33);
+            maxTxt.Location = new Point(88, 22);
             maxTxt.Name = "maxTxt";
             maxTxt.Size = new Size(77, 23);
             maxTxt.TabIndex = 1;
@@ -179,7 +180,7 @@
             // 
             // minTxt
             // 
-            minTxt.Location = new Point(6, 33);
+            minTxt.Location = new Point(6, 22);
             minTxt.Name = "minTxt";
             minTxt.Size = new Size(77, 23);
             minTxt.TabIndex = 0;
@@ -190,7 +191,7 @@
             groupBox3.Controls.Add(storeList);
             groupBox3.Location = new Point(538, 288);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(135, 112);
+            groupBox3.Size = new Size(135, 63);
             groupBox3.TabIndex = 9;
             groupBox3.TabStop = false;
             groupBox3.Text = "Store";

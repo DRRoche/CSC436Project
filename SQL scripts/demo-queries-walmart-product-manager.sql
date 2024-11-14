@@ -33,7 +33,7 @@ where store_id = 4;
 -- find products containing <string>
 select * 
 from unit_price 
-where prod_name like "%coffee%" or "%oil%";
+where prod_name like "%oil%" or prod_name like "%coffee%";
  
 -- update price single item
 select * from unit_price where prod_name like "%coffee%";
@@ -48,6 +48,10 @@ update product
 set price = price + (price * .07)
 where dept_id = 11;
 select * from unit_price where prod_name like "%coffee%";
+
+update product
+set price = 2.1 
+where SKU = 879555;
 
 -- *******************************************************************************************************************************
 -- alter table constraint
