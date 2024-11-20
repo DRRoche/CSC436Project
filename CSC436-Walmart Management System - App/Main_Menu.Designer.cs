@@ -66,7 +66,7 @@
             // 
             // emp_man_btn
             // 
-            emp_man_btn.Location = new Point(333, 305);
+            emp_man_btn.Location = new Point(319, 309);
             emp_man_btn.Name = "emp_man_btn";
             emp_man_btn.Size = new Size(148, 44);
             emp_man_btn.TabIndex = 3;
