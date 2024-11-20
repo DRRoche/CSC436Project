@@ -215,7 +215,7 @@
             Controls.Add(groupBox1);
             Controls.Add(dataGridView1);
             Name = "Product_Search";
-            Text = "Product_Search";
+            Text = "Walmart Management System - Product Search";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             searchMatchChoiceBox.ResumeLayout(false);
             searchMatchChoiceBox.PerformLayout();

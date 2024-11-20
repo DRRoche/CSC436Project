@@ -43,24 +43,6 @@ namespace CSC436_Walmart_Management_System___App
             dataGridView1.DataSource = dbHelper.ExecuteQuery(cmd);
         }
 
-        private string BuildQuery(List<string> conditions, MySqlCommand cmd)
-        {
-            // Determine table and add any store ID condition
-            string query = storeList.SelectedIndex != 0 ? "SELECT * FROM prod_list_by_store WHERE store_id = @store_id AND " : "SELECT * FROM unit_price WHERE ";
-            if (storeList.SelectedIndex != 0)
-            {
-                cmd.Parameters.AddWithValue("@store_id", storeList.SelectedIndex);
-            }
-
-            // Add text search conditions
-            query += string.Join(" ", conditions);
-
-            // Add price range conditions
-            AddPriceConditions(cmd, ref query);
-
-            return query;
-        }
-
         private List<string> BuildConditions(string[] searchArr, MySqlCommand cmd)
         {
             List<string> conditions = new List<string>();
@@ -79,6 +61,25 @@ namespace CSC436_Walmart_Management_System___App
             return conditions;
         }
 
+        private string BuildQuery(List<string> conditions, MySqlCommand cmd)
+        {
+            // Determine table and add any store ID condition
+            string query = storeList.SelectedIndex != 0 ? "SELECT * FROM prod_list_by_store WHERE store_id = @store_id AND " : "SELECT * FROM unit_price WHERE ";
+            if (storeList.SelectedIndex != 0)
+            {
+                cmd.Parameters.AddWithValue("@store_id", storeList.SelectedIndex);
+            }
+
+            // Add text search conditions
+            query += string.Join(" ", conditions);
+
+            // Add price range conditions
+            AddPriceConditions(cmd, ref query);
+
+            return query;
+        }
+
+        
         private IEnumerable<string> CreateSearchConditions(string[] searchArr, MySqlCommand cmd, string logicOp)
         {
             for (int i = 0; i < searchArr.Length; i++)
