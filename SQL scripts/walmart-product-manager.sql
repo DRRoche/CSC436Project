@@ -72,7 +72,10 @@ foreign key (dept_ID) references department(dept_ID),
 foreign key (E_ID) references employee(E_ID),
 foreign key (store_ID) references store(store_ID));
 
--- --------------------------------------------------- Views ---------------------------------------------------------------------------
+-- ---------------------------------------------------Indexes and Views ---------------------------------------------------------------------------
+-- creates index on price attribute
+CREATE INDEX price_idx ON prod_name (price);
+
 -- creates view for products with unit price
 create view unit_price as
 select SKU, dept_id, prod_name, size, price, round(price / size, 2) as unit_price, unit
