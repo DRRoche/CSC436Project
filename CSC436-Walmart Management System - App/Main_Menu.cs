@@ -23,13 +23,6 @@ namespace CSC436_Walmart_Management_System___App
             productSearch.Show();
         }
 
-        private void ProdManagerButton(object sender, EventArgs e)
-        {
-            this.Hide(); // Hide Main Menu
-            Product_Manager productManager = new Product_Manager(dbHelper); // Pass dbHelper to Product_Search
-            productManager.Show();
-        }
-
         private void EmpLookupButton(object sender, EventArgs e)
         {
             this.Hide(); // Hide Main Menu
