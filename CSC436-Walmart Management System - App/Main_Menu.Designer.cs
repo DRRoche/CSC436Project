@@ -71,6 +71,9 @@
             Controls.Add(emp_man_btn);
             Controls.Add(emp_search_btn);
             Controls.Add(prod_search_btn);
+            MaximizeBox = false;
+            MaximumSize = new Size(322, 360);
+            MinimumSize = new Size(322, 360);
             Name = "MainMenu";
             Text = "Walmart Management System - Main Menu";
             ResumeLayout(false);
