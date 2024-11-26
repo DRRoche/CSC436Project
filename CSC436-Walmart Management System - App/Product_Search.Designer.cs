@@ -38,6 +38,8 @@
             searchMatchChoiceBox = new GroupBox();
             groupBox1 = new GroupBox();
             groupBox4 = new GroupBox();
+            radioButton2 = new RadioButton();
+            radioButton1 = new RadioButton();
             databaseHelperBindingSource = new BindingSource(components);
             groupBox2 = new GroupBox();
             label2 = new Label();
@@ -46,17 +48,15 @@
             minTxt = new TextBox();
             groupBox3 = new GroupBox();
             storeList = new ComboBox();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
             groupBox5 = new GroupBox();
             textBox1 = new TextBox();
             groupBox6 = new GroupBox();
-            comboBox1 = new ComboBox();
+            brandList = new ComboBox();
             groupBox7 = new GroupBox();
-            comboBox2 = new ComboBox();
             textBox2 = new TextBox();
+            comboBox2 = new ComboBox();
             groupBox8 = new GroupBox();
-            comboBox3 = new ComboBox();
+            deptList = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             searchMatchChoiceBox.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -163,6 +163,28 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Inventory Mode";
             // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(146, 18);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(92, 19);
+            radioButton2.TabIndex = 1;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Add Product";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Location = new Point(19, 17);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(105, 19);
+            radioButton1.TabIndex = 0;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Product Search";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
             // databaseHelperBindingSource
             // 
             databaseHelperBindingSource.DataSource = typeof(DatabaseHelper);
@@ -233,28 +255,6 @@
             storeList.Size = new Size(121, 23);
             storeList.TabIndex = 0;
             // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(19, 17);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(105, 19);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Product Search";
-            radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(146, 18);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(92, 19);
-            radioButton2.TabIndex = 1;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Add Product";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
             // groupBox5
             // 
             groupBox5.Controls.Add(textBox1);
@@ -274,7 +274,7 @@
             // 
             // groupBox6
             // 
-            groupBox6.Controls.Add(comboBox1);
+            groupBox6.Controls.Add(brandList);
             groupBox6.Location = new Point(679, 288);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new Size(109, 67);
@@ -282,13 +282,13 @@
             groupBox6.TabStop = false;
             groupBox6.Text = "Brand";
             // 
-            // comboBox1
+            // brandList
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(7, 22);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(96, 23);
-            comboBox1.TabIndex = 0;
+            brandList.FormattingEnabled = true;
+            brandList.Location = new Point(7, 22);
+            brandList.Name = "brandList";
+            brandList.Size = new Size(96, 23);
+            brandList.TabIndex = 0;
             // 
             // groupBox7
             // 
@@ -301,6 +301,13 @@
             groupBox7.TabStop = false;
             groupBox7.Text = "Unit";
             // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(6, 18);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(121, 23);
+            textBox2.TabIndex = 1;
+            // 
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
@@ -309,16 +316,9 @@
             comboBox2.Size = new Size(121, 23);
             comboBox2.TabIndex = 0;
             // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(6, 18);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(121, 23);
-            textBox2.TabIndex = 1;
-            // 
             // groupBox8
             // 
-            groupBox8.Controls.Add(comboBox3);
+            groupBox8.Controls.Add(deptList);
             groupBox8.Location = new Point(683, 361);
             groupBox8.Name = "groupBox8";
             groupBox8.Size = new Size(105, 77);
@@ -326,13 +326,13 @@
             groupBox8.TabStop = false;
             groupBox8.Text = "Department";
             // 
-            // comboBox3
+            // deptList
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(4, 35);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(95, 23);
-            comboBox3.TabIndex = 0;
+            deptList.FormattingEnabled = true;
+            deptList.Location = new Point(4, 35);
+            deptList.Name = "deptList";
+            deptList.Size = new Size(95, 23);
+            deptList.TabIndex = 0;
             // 
             // Product_Search
             // 
@@ -394,11 +394,11 @@
         private GroupBox groupBox5;
         private TextBox textBox1;
         private GroupBox groupBox6;
-        private ComboBox comboBox1;
+        private ComboBox brandList;
         private GroupBox groupBox7;
         private TextBox textBox2;
         private ComboBox comboBox2;
         private GroupBox groupBox8;
-        private ComboBox comboBox3;
+        private ComboBox deptList;
     }
 }

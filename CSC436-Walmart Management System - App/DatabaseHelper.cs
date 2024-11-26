@@ -59,8 +59,53 @@ public class DatabaseHelper : IDisposable
                 }
             }
         }
-
         return storeIDs;
+    }
+
+    public List<string> GetBrands()
+    {
+        List<string> brands = new List<string>();
+        string query = "SELECT brand_name FROM brand";
+
+        using (MySqlConnection conn = new MySqlConnection(connectionString))
+        {
+            conn.Open();
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            {
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        brands.Add(reader.GetString("brand_name"));
+                    }
+                }
+            }
+        }
+        return brands;
+    }
+
+    public List<(int, string)> GetDepartments()
+    {
+        List<(int, string)> departments = new List<(int, string)>();
+        string query = "SELECT dept_id, dept_name FROM department";
+
+        using (MySqlConnection conn = new MySqlConnection(connectionString))
+        {
+            conn.Open();
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            {
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int deptId = reader.GetInt32("dept_id");
+                        string deptName = reader.GetString("dept_name");
+                        departments.Add((deptId, deptName));
+                    }
+                }
+            }
+        }
+        return departments;
     }
 
     public void Dispose()

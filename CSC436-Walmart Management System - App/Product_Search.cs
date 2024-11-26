@@ -15,6 +15,8 @@ namespace CSC436_Walmart_Management_System___App
             InitializeComponent();
             dbHelper = existingDbHelper;
             PopulateStoreList();
+            PopulateBrandList();
+            PopulateDeptList();
             LoadData(""); // Load initial data with an empty search
 
             // Link FormClosing event
@@ -110,6 +112,20 @@ namespace CSC436_Walmart_Management_System___App
             storeList.Items.Add("Any");
             storeList.Items.AddRange(dbHelper.GetStoreIDs().Cast<object>().ToArray());
             storeList.SelectedIndex = 0;
+        }
+
+        private void PopulateBrandList()
+        {
+            brandList.Items.Add("Any");
+            brandList.Items.AddRange(dbHelper.GetBrands().Cast<object>().ToArray());
+            brandList.SelectedIndex = 0;
+        }
+
+        private void PopulateDeptList()
+        {
+            deptList.Items.Add("Any");
+            deptList.Items.AddRange(dbHelper.GetDepartments().Cast<object>().ToArray());
+            deptList.SelectedIndex = 0;
         }
 
         private void Product_Search_FormClosing(object sender, FormClosingEventArgs e)
