@@ -273,6 +273,7 @@
             skuTxt.Name = "skuTxt";
             skuTxt.Size = new Size(159, 23);
             skuTxt.TabIndex = 0;
+            skuTxt.KeyPress += validateNumericKeypress;
             // 
             // groupBox6
             // 
@@ -311,6 +312,7 @@
             sizeTxt.Name = "sizeTxt";
             sizeTxt.Size = new Size(121, 23);
             sizeTxt.TabIndex = 1;
+            sizeTxt.KeyPress += validateNumericKeypress;
             // 
             // unitList
             // 

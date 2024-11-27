@@ -198,91 +198,101 @@ namespace CSC436_Walmart_Management_System___App {
             }
         }
 
-        private void AddProduct() {
-            // check that all fields [prodNameTxt(max char:100), skuTxt, minTxt, sizeTxt] are filled and brandList and deptList index 0 are not selected and set prodErr state given field can't be empty
-            bool prodErr = false;
-            if (prodNameTxt.Text == "") {
-                prodErr = true;
-                MessageBox.Show("Product Name cannot be empty.");
-            }
-            if (skuTxt.Text == "") {
-                prodErr = true;
-                MessageBox.Show("SKU cannot be empty.");
-            }
-            if (minTxt.Text == "") {
-                prodErr = true;
-                MessageBox.Show("Minimum Price cannot be empty.");
-            }
-            if (sizeTxt.Text == "") {
-                prodErr = true;
-                MessageBox.Show("Size cannot be empty.");
-            }
-            if (brandList.SelectedIndex == 0) {
-                prodErr = true;
-                MessageBox.Show("Brand cannot be empty.");
-            }
-            if (deptList.SelectedIndex == 0) {
-                prodErr = true;
-                MessageBox.Show("Department cannot be empty.");
-            }
-            if (!prodErr) {
-                // check that skuTxt is a number and set skuErr state given skuTxt is not a number
-                bool skuErr = false;
-                if (!int.TryParse(skuTxt.Text, out int sku)) {
-                    skuErr = true;
-                    MessageBox.Show("SKU must be a number.");
-                }
-                if (!skuErr) {
-                    // check that minTxt is a number and set minErr state given minTxt is not a number
-                    bool minErr = false;
-                    if (!decimal.TryParse(minTxt.Text, out decimal min)) {
-                        minErr = true;
-                        MessageBox.Show("Minimum Price must be a number.");
-                    }
-                    if (!minErr) {
-                        // check that sizeTxt is a number and set sizeErr state given sizeTxt is not a number
-                        bool sizeErr = false;
-                        if (!decimal.TryParse(sizeTxt.Text, out decimal size)) {
-                            sizeErr = true;
-                            MessageBox.Show("Size must be a number.");
-                        }
-                        if (!sizeErr) {
-                            // check that unitList index 0 is not selected and set unitErr state given unitList index 0 is selected
-                            bool unitErr = false;
-                           
-                            if (!unitErr) {
-                                // check that skuTxt is not already in the database and set skuErr state given skuTxt is already in the database
-                                bool skuExists = dbHelper.SkuExists(sku);
-                                if (skuExists) {
-                                    MessageBox.Show("SKU already exists in the database.");
-                                }
-                                if (!skuExists) {
-                                    // insert product into database
-                                    dbHelper.InsertProduct(sku, prodNameTxt.Text, min, size, brandList.SelectedItem.ToString(), deptList.SelectedIndex, unitList.SelectedItem.ToString());
-                                    // insert product into stocks table for each store in storeList if storeList index 0 is selected otherwise insert product into stocks table for the store selected in storeList
-                                    if (storeList.SelectedIndex == 0) {
-                                        List<int> storeIDs = dbHelper.GetStoreIDs();
-                                        foreach (int storeID in storeIDs) {
-                                            dbHelper.InsertStocks(storeID, sku);
-                                        }
-                                        MessageBox.Show("Product added successfully.");
-                                    }
-                                    else {
-                                        dbHelper.InsertStocks(storeList.SelectedIndex, sku);
-                                        MessageBox.Show("Product added successfully.");
-                                    }
-                                    // insert product in manufactures table with sku and brandList selected item
-                                    dbHelper.InsertManufactures(sku, brandList.SelectedItem.ToString());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        private void AddProduct()
+{
+    // Validate product fields
+    if (prodNameTxt.Text == "")
+    {
+        ShowError("Product Name cannot be empty.");
+        return;
+    }
 
+    if (skuTxt.Text == "")
+    {
+        ShowError("SKU cannot be empty.");
+        return;
+    }
 
-            MessageBox.Show("Add Product functionality is under development.");
+    if (minTxt.Text == "")
+    {
+        ShowError("Minimum Price cannot be empty.");
+        return;
+    }
+
+    if (sizeTxt.Text == "")
+    {
+        ShowError("Size cannot be empty.");
+        return;
+    }
+
+    if (brandList.SelectedIndex == 0)
+    {
+        ShowError("Brand cannot be empty.");
+        return;
+    }
+
+    if (deptList.SelectedIndex == 0)
+    {
+        ShowError("Department cannot be empty.");
+        return;
+    }
+
+    // Validate SKU as integer
+    if (!int.TryParse(skuTxt.Text, out int sku))
+    {
+        ShowError("SKU must be a number.");
+        return;
+    }
+
+    // Validate Minimum Price as decimal
+    if (!decimal.TryParse(minTxt.Text, out decimal min))
+    {
+        ShowError("Minimum Price must be a number.");
+        return;
+    }
+
+    // Validate Size as decimal
+    if (!decimal.TryParse(sizeTxt.Text, out decimal size))
+    {
+        ShowError("Size must be a number.");
+        return;
+    }
+
+    // Check if SKU exists in the database
+    if (dbHelper.SkuExists(sku))
+    {
+        ShowError("SKU already exists in the database.");
+        return;
+    }
+
+    // Insert product into the database
+    dbHelper.InsertProduct(sku, prodNameTxt.Text, min, size, brandList.SelectedItem.ToString(), deptList.SelectedIndex, unitList.SelectedItem.ToString());
+
+    // Insert product into stocks table
+    if (storeList.SelectedIndex == 0)
+    {
+        List<int> storeIDs = dbHelper.GetStoreIDs();
+        foreach (int storeID in storeIDs)
+        {
+            dbHelper.InsertStocks(storeID, sku);
         }
+    }
+    else
+    {
+        dbHelper.InsertStocks(storeList.SelectedIndex, sku);
+    }
+
+    // Insert product into manufactures table
+    dbHelper.InsertManufactures(sku, brandList.SelectedItem.ToString());
+
+    MessageBox.Show("Product added successfully.");
+}
+
+private void ShowError(string message)
+{
+    MessageBox.Show(message);
+}
+
 
         private void ToggleMode(object sender, EventArgs e) {
             bool isSearchMode = prod_search_rad.Checked;
