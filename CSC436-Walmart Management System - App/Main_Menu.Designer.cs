@@ -29,14 +29,13 @@
         private void InitializeComponent()
         {
             prod_search_btn = new Button();
-            prod_man_btn = new Button();
             emp_search_btn = new Button();
             emp_man_btn = new Button();
             SuspendLayout();
             // 
             // prod_search_btn
             // 
-            prod_search_btn.Location = new Point(319, 76);
+            prod_search_btn.Location = new Point(82, 47);
             prod_search_btn.Name = "prod_search_btn";
             prod_search_btn.Size = new Size(148, 44);
             prod_search_btn.TabIndex = 0;
@@ -44,19 +43,9 @@
             prod_search_btn.UseVisualStyleBackColor = true;
             prod_search_btn.Click += ProdSearchButton;
             // 
-            // prod_man_btn
-            // 
-            prod_man_btn.Location = new Point(319, 156);
-            prod_man_btn.Name = "prod_man_btn";
-            prod_man_btn.Size = new Size(148, 44);
-            prod_man_btn.TabIndex = 1;
-            prod_man_btn.Text = "Product Manager";
-            prod_man_btn.UseVisualStyleBackColor = true;
-            prod_man_btn.Click += ProdManagerButton;
-            // 
             // emp_search_btn
             // 
-            emp_search_btn.Location = new Point(319, 233);
+            emp_search_btn.Location = new Point(82, 138);
             emp_search_btn.Name = "emp_search_btn";
             emp_search_btn.Size = new Size(148, 44);
             emp_search_btn.TabIndex = 2;
@@ -66,7 +55,7 @@
             // 
             // emp_man_btn
             // 
-            emp_man_btn.Location = new Point(319, 309);
+            emp_man_btn.Location = new Point(82, 229);
             emp_man_btn.Name = "emp_man_btn";
             emp_man_btn.Size = new Size(148, 44);
             emp_man_btn.TabIndex = 3;
@@ -78,11 +67,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(306, 321);
             Controls.Add(emp_man_btn);
             Controls.Add(emp_search_btn);
-            Controls.Add(prod_man_btn);
             Controls.Add(prod_search_btn);
+            MaximizeBox = false;
+            MaximumSize = new Size(322, 360);
+            MinimumSize = new Size(322, 360);
             Name = "MainMenu";
             Text = "Walmart Management System - Main Menu";
             ResumeLayout(false);
@@ -91,7 +82,6 @@
         #endregion
 
         private Button prod_search_btn;
-        private Button prod_man_btn;
         private Button emp_search_btn;
         private Button emp_man_btn;
     }
