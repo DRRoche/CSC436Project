@@ -63,6 +63,16 @@ namespace CSC436_Walmart_Management_System___App
             return conditions;
         }
 
+        private IEnumerable<string> CreateSearchConditions(string[] searchArr, MySqlCommand cmd, string logicOp) {
+            List<string> conditions = new List<string>();
+            for (int i = 0; i < searchArr.Length; i++) {
+                string paramName = $"@word{i}";
+                cmd.Parameters.AddWithValue(paramName, "%" + searchArr[i] + "%");
+                conditions.Add($"prod_name LIKE {paramName}");
+            }
+            return new List<string> { string.Join(logicOp, conditions) };
+        }
+
         private string BuildQuery(List<string> conditions, MySqlCommand cmd)
         {
             // Determine table and add any store ID condition
@@ -81,16 +91,6 @@ namespace CSC436_Walmart_Management_System___App
             return query;
         }
 
-        
-        private IEnumerable<string> CreateSearchConditions(string[] searchArr, MySqlCommand cmd, string logicOp)
-        {
-            for (int i = 0; i < searchArr.Length; i++)
-            {
-                string paramName = $"@word{i}";
-                cmd.Parameters.AddWithValue(paramName, "%" + searchArr[i] + "%");
-                yield return $"prod_name LIKE {paramName}";
-            }
-        }
 
         private void AddPriceConditions(MySqlCommand cmd, ref string query)
         {
