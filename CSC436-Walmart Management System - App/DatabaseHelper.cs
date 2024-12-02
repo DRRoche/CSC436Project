@@ -253,6 +253,60 @@ public class DatabaseHelper : IDisposable
             conn.Close();
         }
     }
+
+    internal bool BrandExists(string brandId)
+    {
+        // Check if brand ID already exists in the brand table
+        string query = "SELECT COUNT(*) FROM brand WHERE brand_ID = @brandID";
+        bool exists = false;
+
+        try
+        {
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@brandID", brandId);
+
+            conn.Open();
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            exists = count > 0;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error checking Brand existence: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+        return exists;
+    }
+
+    internal void InsertBrand(string brandID, string brandName, bool @store_brand)
+    {
+        // insert into brand table brandID, brandName, store_brand
+        try
+        {
+            using (MySqlCommand cmd = new MySqlCommand())
+            {
+                cmd.Connection = conn;
+                cmd.CommandText = "INSERT INTO brand (brand_ID, brand_name, chain_exclusive) VALUES (@brandID, @brandName, @store_brand)";
+                cmd.Parameters.AddWithValue("@brandID", brandID);
+                cmd.Parameters.AddWithValue("@brandName", brandName);
+                cmd.Parameters.AddWithValue("@store_brand", store_brand);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error inserting brand: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            conn.Close();
+        }
+    }
     public DataTable GetEmployees(string searchTxt, string position = "Any", string payrollType = "Any", string storeId = null)
     {
         string query = "SELECT E_ID, M_ID, e_name AS 'Employee Name', position, payroll_type, pay_rate FROM employee";
