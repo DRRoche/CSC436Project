@@ -26,7 +26,8 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             components = new System.ComponentModel.Container();
             dataGridView1 = new DataGridView();
             prodNameTxt = new TextBox();
@@ -50,6 +51,7 @@
             groupBox5 = new GroupBox();
             skuTxt = new TextBox();
             groupBox6 = new GroupBox();
+            addBrandBtn = new Button();
             brandList = new ComboBox();
             unitGrpBox = new GroupBox();
             sizeTxt = new TextBox();
@@ -277,6 +279,7 @@
             // 
             // groupBox6
             // 
+            groupBox6.Controls.Add(addBrandBtn);
             groupBox6.Controls.Add(brandList);
             groupBox6.Location = new Point(678, 288);
             groupBox6.Name = "groupBox6";
@@ -284,6 +287,17 @@
             groupBox6.TabIndex = 12;
             groupBox6.TabStop = false;
             groupBox6.Text = "Brand";
+            // 
+            // addBrandBtn
+            // 
+            addBrandBtn.Location = new Point(83, 45);
+            addBrandBtn.Margin = new Padding(0);
+            addBrandBtn.Name = "addBrandBtn";
+            addBrandBtn.Size = new Size(20, 20);
+            addBrandBtn.TabIndex = 1;
+            addBrandBtn.Text = "+";
+            addBrandBtn.UseVisualStyleBackColor = true;
+            addBrandBtn.Click += addBrandBtn_Click;
             // 
             // brandList
             // 
@@ -418,5 +432,6 @@
         private GroupBox groupBox8;
         private ComboBox deptList;
         private ErrorProvider prodErr;
+        private Button addBrandBtn;
     }
 }
