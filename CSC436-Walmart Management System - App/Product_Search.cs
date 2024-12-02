@@ -288,11 +288,10 @@ namespace CSC436_Walmart_Management_System___App {
     MessageBox.Show("Product added successfully.");
 }
 
-private void ShowError(string message)
-{
-    MessageBox.Show(message);
-}
-
+        private void ShowError(string message)
+        {
+            MessageBox.Show(message);
+        }
 
         private void ToggleMode(object sender, EventArgs e) {
             bool isSearchMode = prod_search_rad.Checked;
@@ -308,11 +307,12 @@ private void ShowError(string message)
             if (e.RowIndex >= 0) {
                 DataGridViewRow selectedRow = dataGridView1.Rows[e.RowIndex];
                 int SKU = Convert.ToInt32(selectedRow.Cells["SKU"].Value);
-                string productName = selectedRow.Cells["prod_name"].Value.ToString();
+                string productName = selectedRow.Cells["Product"].Value.ToString();
                 decimal price = Convert.ToDecimal(selectedRow.Cells["price"].Value);
 
                 ProductDetailsForm detailsForm = new ProductDetailsForm(SKU, productName, price, dbHelper);
                 detailsForm.ShowDialog();
+                LoadData(prodNameTxt.Text);
             }
         }
     }
