@@ -307,16 +307,23 @@ public class DatabaseHelper : IDisposable
             conn.Close();
         }
     }
-    public DataTable GetEmployees(string searchTxt, string position = "Any", string payrollType = "Any", string storeId = null)
+    public DataTable GetEmployees(string searchTxt, string position = "Any", string payrollType = "Any", string storeId = null, bool matchExact = false, bool matchAny = false)
     {
         string query = "SELECT E_ID, M_ID, e_name AS 'Employee Name', position, payroll_type, pay_rate FROM employee";
         List<string> conditions = new List<string>();
         MySqlCommand cmd = new MySqlCommand();
 
+        // Build query conditions
         if (!string.IsNullOrEmpty(searchTxt))
         {
-            conditions.Add("e_name LIKE @searchTxt");
-            cmd.Parameters.AddWithValue("@searchTxt", "%" + searchTxt + "%");
+            if (matchExact)
+                conditions.Add("e_name = @searchTxt");
+            else if (matchAny)
+                conditions.Add("e_name LIKE CONCAT('%', @searchTxt, '%')");
+            else
+                conditions.Add("e_name LIKE @searchTxt");
+
+            cmd.Parameters.AddWithValue("@searchTxt", matchExact ? searchTxt : $"%{searchTxt}%");
         }
 
         if (position != "Any")
@@ -337,8 +344,9 @@ public class DatabaseHelper : IDisposable
             cmd.Parameters.AddWithValue("@storeId", storeId);
         }
 
+        // Append conditions to query
         if (conditions.Count > 0)
-            query += " WHERE " + string.Join(" AND ", conditions);
+            query += " WHERE " + string.Join(matchAny ? " OR " : " AND ", conditions);
 
         cmd.CommandText = query;
         return ExecuteQuery(cmd);

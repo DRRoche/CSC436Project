@@ -32,47 +32,97 @@ namespace CSC436_Walmart_Management_System___App
 
         private void LoadEmployeeData(string searchTxt)
         {
-            string selectedPosition = positionList.SelectedItem.ToString();
-            string selectedPayrollType = payrollTypeList.SelectedItem.ToString();
-            string storeId = string.IsNullOrEmpty(storeIdTxt.Text) ? null : storeIdTxt.Text;
+            try
+            {
+                string selectedPosition = positionList.SelectedItem.ToString();
+                string selectedPayrollType = payrollTypeList.SelectedItem.ToString();
+                string storeId = string.IsNullOrEmpty(storeIdTxt.Text) ? null : storeIdTxt.Text;
 
-            dataGridView1.DataSource = dbHelper.GetEmployees(searchTxt, selectedPosition, selectedPayrollType, storeId);
+                // Determine search match mode
+                bool matchExact = exactlyRad.Checked;
+                bool matchAny = anyRad.Checked;
+
+                DataTable results = dbHelper.GetEmployees(searchTxt, selectedPosition, selectedPayrollType, storeId, matchExact, matchAny);
+
+                if (results.Rows.Count == 0)
+                {
+                    MessageBox.Show("No employees found matching your search criteria.", "Search Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                dataGridView1.DataSource = results;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading employee data: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void AddEmployee()
         {
-            if (string.IsNullOrEmpty(employeeNameTxt.Text) || string.IsNullOrEmpty(payRateTxt.Text) || positionList.SelectedIndex == 0 || payrollTypeList.SelectedIndex == 0)
+            // Trim any leading/trailing spaces to avoid false empty validation
+            string employeeName = employeeNameTxt.Text.Trim();
+            string payRateText = payRateTxt.Text.Trim();
+
+            // Ensure all required fields are filled (including ComboBox selected values)
+            if (string.IsNullOrEmpty(employeeName) ||
+                string.IsNullOrEmpty(payRateText) ||
+                positionList.SelectedIndex == 0 || // Assuming index 0 is the default "Select Position"
+                payrollTypeList.SelectedIndex == 0) // Assuming index 0 is the default "Select Payroll Type"
             {
                 MessageBox.Show("All fields are required.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (!decimal.TryParse(payRateTxt.Text, out decimal payRate))
+            // Ensure the pay rate is a valid decimal number
+            if (!decimal.TryParse(payRateText, out decimal payRate))
             {
                 MessageBox.Show("Pay Rate must be a valid number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            dbHelper.InsertEmployee(
-                employeeNameTxt.Text,
-                positionList.SelectedItem.ToString(),
-                payrollTypeList.SelectedItem.ToString(),
-                payRate,
-                int.TryParse(storeIdTxt.Text, out int managerId) ? managerId : (int?)null
-            );
+            // Optional: Validate if Store ID is provided (if applicable)
+            int? storeId = null;
+            if (!string.IsNullOrEmpty(storeIdTxt.Text))
+            {
+                if (!int.TryParse(storeIdTxt.Text, out int parsedStoreId))
+                {
+                    MessageBox.Show("Store ID must be a valid number.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                storeId = parsedStoreId;
+            }
 
-            MessageBox.Show("Employee added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            LoadEmployeeData("");
+            // Insert employee details into the database
+            try
+            {
+                dbHelper.InsertEmployee(
+                    employeeName,
+                    positionList.SelectedItem.ToString(),
+                    payrollTypeList.SelectedItem.ToString(),
+                    payRate,
+                    storeId
+                );
+
+                MessageBox.Show("Employee added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadEmployeeData(""); // Refresh the data grid to show the added employee
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding employee: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void ToggleMode(object sender, EventArgs e)
         {
             bool isSearchMode = searchRad.Checked;
 
-            employeeGrpBox.Enabled = !isSearchMode;
+            // Update button text to reflect the current mode
             searchBtn.Text = isSearchMode ? "Search" : "Add Employee";
-        }
 
+            // No need to disable or enable controls. Everything stays enabled, just change functionality
+            // Controls will remain enabled regardless of the mode
+        }
         private void PopulateComboBox(ComboBox comboBox, List<string> items, string defaultItem)
         {
             comboBox.Items.Clear();
@@ -85,10 +135,12 @@ namespace CSC436_Walmart_Management_System___App
         {
             if (searchRad.Checked)
             {
-                LoadEmployeeData(employeeNameTxt.Text);
+                // In Search Mode, perform the search operation
+                LoadEmployeeData(employeeNameTxt.Text);  // Or however the search data is handled
             }
             else if (addEmployeeRad.Checked)
             {
+                // In Add Employee Mode, add the employee
                 AddEmployee();
             }
         }
