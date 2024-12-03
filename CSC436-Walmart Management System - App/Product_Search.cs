@@ -13,9 +13,9 @@ namespace CSC436_Walmart_Management_System___App
             dbHelper = existingDbHelper;
 
             // Populate combo boxes with initial data
-            PopulateComboBox(storeList, dbHelper.GetStoreIDs().Cast<object>().ToList(), "Any");
+            PopulateComboBox(storeList, dbHelper.GetStoreIDs().Cast<object>().ToList(), "All");
             PopulateComboBox(brandList, dbHelper.GetBrands().Cast<object>().ToList(), "Any");
-            PopulateComboBox(deptList, dbHelper.GetDepartments().Select(d => (object)d.Item2).ToList(), "Any");
+            PopulateComboBox(deptList, dbHelper.GetDepartments().Select(d => (object)d.Item2).ToList(), "All");
             PopulateComboBox(unitList, ["ml", "lt", "lb", "pcs"], "oz");
             LoadData(""); // Load initial data with an empty search
 
