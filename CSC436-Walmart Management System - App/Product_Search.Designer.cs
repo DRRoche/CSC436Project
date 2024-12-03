@@ -291,6 +291,7 @@
             // 
             // addBrandBtn
             // 
+            addBrandBtn.Enabled = false;
             addBrandBtn.Location = new Point(83, 45);
             addBrandBtn.Margin = new Padding(0);
             addBrandBtn.Name = "addBrandBtn";
