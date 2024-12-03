@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
@@ -257,5 +257,105 @@ public class DatabaseHelper : IDisposable {
             conn.Close();
         }
     }
+  public DataTable GetEmployees(string searchTxt, string position = "Any", string payrollType = "Any", string storeId = null)
+    {
+        string query = "SELECT E_ID, M_ID, e_name AS 'Employee Name', position, payroll_type, pay_rate FROM employee";
+        List<string> conditions = new List<string>();
+        MySqlCommand cmd = new MySqlCommand();
+
+        if (!string.IsNullOrEmpty(searchTxt))
+        {
+            conditions.Add("e_name LIKE @searchTxt");
+            cmd.Parameters.AddWithValue("@searchTxt", "%" + searchTxt + "%");
+        }
+
+        if (position != "Any")
+        {
+            conditions.Add("position = @position");
+            cmd.Parameters.AddWithValue("@position", position);
+        }
+
+        if (payrollType != "Any")
+        {
+            conditions.Add("payroll_type = @payrollType");
+            cmd.Parameters.AddWithValue("@payrollType", payrollType);
+        }
+
+        if (!string.IsNullOrEmpty(storeId))
+        {
+            conditions.Add("M_ID = @storeId");
+            cmd.Parameters.AddWithValue("@storeId", storeId);
+        }
+
+        if (conditions.Count > 0)
+            query += " WHERE " + string.Join(" AND ", conditions);
+
+        cmd.CommandText = query;
+        return ExecuteQuery(cmd);
+    }
+
+    public void InsertEmployee(string name, string position, string payrollType, decimal payRate, int? managerId = null)
+    {
+        try
+        {
+            using (MySqlCommand cmd = new MySqlCommand())
+            {
+                cmd.Connection = conn;
+                cmd.CommandText = "INSERT INTO employee (e_name, position, payroll_type, pay_rate, M_ID) VALUES (@name, @position, @payrollType, @payRate, @managerId)";
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@position", position);
+                cmd.Parameters.AddWithValue("@payrollType", payrollType);
+                cmd.Parameters.AddWithValue("@payRate", payRate);
+                cmd.Parameters.AddWithValue("@managerId", managerId.HasValue ? (object)managerId.Value : DBNull.Value);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error inserting employee: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            conn.Close();
+        }
+    }
+
+    public List<string> GetRoles()
+    {
+        List<string> roles = new List<string>();
+        string query = "SELECT DISTINCT position FROM employee";
+
+        try
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            roles.Add(reader.GetString("position"));
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error fetching roles: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        return roles;
+    }
+
+    public List<string> GetPayrollTypes()
+    {
+        return new List<string> { "Hourly", "Salary" };
+    }
 }
+
 
