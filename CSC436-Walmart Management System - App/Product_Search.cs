@@ -38,7 +38,7 @@ namespace CSC436_Walmart_Management_System___App
 
         private void LoadData(string searchTxt)
         {
-            string[] searchArr = searchTxt.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] searchArr = searchTxt.Split(new[] { ' ', '\t' }/*, StringSplitOptions.RemoveEmptyEntries*/);
             MySqlCommand cmd = new MySqlCommand();
             List<string> conditions = BuildConditions(searchArr, cmd);
 
@@ -48,6 +48,7 @@ namespace CSC436_Walmart_Management_System___App
             cmd.CommandText = query;
             dataGridView1.DataSource = dbHelper.ExecuteQuery(cmd);
             dataGridView1_Resize();
+
         }
 
         private List<string> BuildConditions(string[] searchArr, MySqlCommand cmd)
