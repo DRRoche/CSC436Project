@@ -22,8 +22,8 @@ namespace CSC436_Walmart_Management_System___App
 
         private void Employee_Manager_FormClosing(object sender, FormClosingEventArgs e)
         {
-            dbHelper.Dispose();
-            Application.Exit();
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
         }
     }
 }

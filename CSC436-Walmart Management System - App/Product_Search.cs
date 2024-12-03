@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
 using System.Data;
-using System.Linq;
-using System.Runtime.Versioning;
-using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
-namespace CSC436_Walmart_Management_System___App {
+namespace CSC436_Walmart_Management_System___App
+{
     public partial class Product_Search : Form
     {
         private readonly DatabaseHelper dbHelper;
@@ -223,10 +219,7 @@ namespace CSC436_Walmart_Management_System___App {
             //Application.Exit();
         }
 
-
-
-        private void searchBtn_Click(object sender, EventArgs e)
-        {
+        private void searchBtn_Click(object sender, EventArgs e){
             if (prod_search_rad.Checked)
             {
                 LoadData(prodNameTxt.Text);
@@ -237,8 +230,7 @@ namespace CSC436_Walmart_Management_System___App {
             }
         }
 
-        private void AddProduct()
-        {
+        private void AddProduct(){
             // Validate product fields
             if (prodNameTxt.Text == "")
             {
@@ -327,13 +319,11 @@ namespace CSC436_Walmart_Management_System___App {
             MessageBox.Show("Product added successfully.");
         }
 
-        private void ShowError(string message)
-        {
+        private void ShowError(string message){
             MessageBox.Show(message);
         }
 
-        private void ToggleMode(object sender, EventArgs e)
-        {
+        private void ToggleMode(object sender, EventArgs e){
             bool isSearchMode = prod_search_rad.Checked;
 
             unitGrpBox.Enabled = !isSearchMode;
@@ -341,10 +331,10 @@ namespace CSC436_Walmart_Management_System___App {
             maxTxt.Visible = isSearchMode ? true : false;
             maxLbl.Visible = isSearchMode ? true : false;
             minLbl.Visible = isSearchMode ? true : false;
+            addBrandBtn.Enabled = isSearchMode ? false : true;
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e){
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow selectedRow = dataGridView1.Rows[e.RowIndex];
@@ -359,18 +349,24 @@ namespace CSC436_Walmart_Management_System___App {
         }
 
         // Add function to resize datagradview1 columns(0,1,3,4,5,6) to fit the content
-        private void dataGridView1_Resize()
-        {
+        private void dataGridView1_Resize(){
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
-        private void addBrandBtn_Click(object sender, EventArgs e)
-        {
+        private void addBrandBtn_Click(object sender, EventArgs e){
             BrandAdder brandAdder = new BrandAdder(dbHelper);
             brandAdder.ShowDialog();
             brandList.Items.Clear();
             PopulateComboBox(brandList, dbHelper.GetBrands().Cast<object>().ToList(), "Any");
+        }
+
+        private void prodNameTxt_KeyPress(object sender, KeyPressEventArgs e){
+            // if enter is pressed active search button click event
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                searchBtn_Click(sender, e);
+            }
         }
     }
 }

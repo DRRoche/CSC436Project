@@ -206,8 +206,7 @@ public class DatabaseHelper : IDisposable {
         }
     }
 
-    internal bool BrandExists(string brandId)
-    {
+    internal bool BrandExists(string brandId){
         // Check if brand ID already exists in the brand table
         string query = "SELECT COUNT(*) FROM brand WHERE brand_ID = @brandID";
         bool exists = false;
@@ -233,8 +232,7 @@ public class DatabaseHelper : IDisposable {
         return exists;
     }
 
-    internal void InsertBrand(string brandID, string brandName, bool @store_brand)
-    {
+    internal void InsertBrand(string brandID, string brandName, bool @store_brand){
         // insert into brand table brandID, brandName, store_brand
         try
         {
