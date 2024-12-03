@@ -10,17 +10,14 @@ using System.Windows.Forms;
 
 namespace CSC436_Walmart_Management_System___App
 {
-    public partial class BrandAdder : Form
-    {
+    public partial class BrandAdder : Form{
         private readonly DatabaseHelper dbHelper;
-        public BrandAdder(DatabaseHelper dbHelper)
-        {
+        public BrandAdder(DatabaseHelper dbHelper){
             InitializeComponent();
             this.dbHelper = dbHelper;
         }
 
-        private void brandIdTxt_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void brandIdTxt_KeyPress(object sender, KeyPressEventArgs e){
 
             if (brandIdTxt.Text.Length < 5 || e.KeyChar == (char)Keys.Back)
             {
@@ -29,8 +26,7 @@ namespace CSC436_Walmart_Management_System___App
             e.Handled = true;
         }
 
-        private void addBrandBtn_Click(object sender, EventArgs e)
-        {
+        private void addBrandBtn_Click(object sender, EventArgs e){
             // Check that both brandNameTxt and brandIdTxt are not empty
             if (string.IsNullOrWhiteSpace(brandNameTxt.Text) || string.IsNullOrWhiteSpace(brandIdTxt.Text))
             {
@@ -45,7 +41,7 @@ namespace CSC436_Walmart_Management_System___App
             }
             // Insert brand into brand table brandIdTxt.Text, brandNameTxt.Text, chainExclusiveChk.Checked
             dbHelper.InsertBrand(brandIdTxt.Text, brandNameTxt.Text, chainExclusiveChk.Checked);
-            MessageBox.Show("Product details updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Brand added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             this.Close();
         }

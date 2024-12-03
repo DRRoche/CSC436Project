@@ -1,16 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
-public class DatabaseHelper : IDisposable
-{
+public class DatabaseHelper : IDisposable {
     private MySqlConnection conn;
     private string connectionString;
 
-    public DatabaseHelper()
-    {
+    public DatabaseHelper() {
         string server = "127.0.0.1";
         string database = "Walmart_Product_Manager";
         string user = "root";
@@ -22,107 +20,83 @@ public class DatabaseHelper : IDisposable
         conn = new MySqlConnection(connectionString);
     }
 
-    public DataTable ExecuteQuery(MySqlCommand cmd)
-    {
+    public DataTable ExecuteQuery(MySqlCommand cmd) {
         DataTable dataTable = new DataTable();
         cmd.Connection = conn;
 
-        try
-        {
+        try {
             if (conn.State != ConnectionState.Open)
                 conn.Open();
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
             adapter.Fill(dataTable);
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             MessageBox.Show($"Error executing query: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        finally
-        {
+        finally {
             conn.Close();
         }
 
         return dataTable;
     }
 
-    public List<int> GetStoreIDs()
-    {
+    public List<int> GetStoreIDs() {
         List<int> storeIDs = new List<int>();
         string query = "SELECT store_id FROM store";
 
-        try
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
+        try {
+            using (MySqlConnection conn = new MySqlConnection(connectionString)) {
                 conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
+                using (MySqlCommand cmd = new MySqlCommand(query, conn)) {
+                    using (MySqlDataReader reader = cmd.ExecuteReader()) {
+                        while (reader.Read()) {
                             storeIDs.Add(reader.GetInt32("store_id"));
                         }
                     }
                 }
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             MessageBox.Show($"Error fetching store IDs: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         return storeIDs;
     }
 
-    public List<string> GetBrands()
-    {
+    public List<string> GetBrands() {
         List<string> brands = new List<string>();
         string query = "SELECT brand_ID FROM brand";
 
-        try
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
+        try {
+            using (MySqlConnection conn = new MySqlConnection(connectionString)) {
                 conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
+                using (MySqlCommand cmd = new MySqlCommand(query, conn)) {
+                    using (MySqlDataReader reader = cmd.ExecuteReader()) {
+                        while (reader.Read()) {
                             brands.Add(reader.GetString("brand_ID"));
                         }
                     }
                 }
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             MessageBox.Show($"Error fetching brands: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         return brands;
     }
 
-    public List<(int, string)> GetDepartments()
-    {
+    public List<(int, string)> GetDepartments() {
         List<(int, string)> departments = new List<(int, string)>();
         string query = "SELECT dept_id, dept_name FROM department";
 
-        try
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
+        try {
+            using (MySqlConnection conn = new MySqlConnection(connectionString)) {
                 conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
+                using (MySqlCommand cmd = new MySqlCommand(query, conn)) {
+                    using (MySqlDataReader reader = cmd.ExecuteReader()) {
+                        while (reader.Read()) {
                             int deptId = reader.GetInt32("dept_id");
                             string deptName = reader.GetString("dept_name");
                             departments.Add((deptId, deptName));
@@ -131,21 +105,18 @@ public class DatabaseHelper : IDisposable
                 }
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             MessageBox.Show($"Error fetching departments: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         return departments;
     }
 
-    public bool SkuExists(int sku)
-    {
+    public bool SkuExists(int sku) {
         string query = "SELECT COUNT(*) FROM unit_price WHERE SKU = @sku";
         bool exists = false;
 
-        try
-        {
+        try {
             MySqlCommand cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@sku", sku);
 
@@ -153,24 +124,19 @@ public class DatabaseHelper : IDisposable
             int count = Convert.ToInt32(cmd.ExecuteScalar());
             exists = count > 0;
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             MessageBox.Show($"Error checking SKU existence: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        finally
-        {
+        finally {
             conn.Close();
         }
 
         return exists;
     }
 
-    public void InsertProduct(int sku, string prodName, decimal minPrice, decimal size, string brand, int deptId, string unit)
-    {
-        try
-        {
-            using (MySqlCommand cmd = new MySqlCommand())
-            {
+    public void InsertProduct(int sku, string prodName, decimal minPrice, decimal size, string brand, int deptId, string unit) {
+        try {
+            using (MySqlCommand cmd = new MySqlCommand()) {
                 cmd.Connection = conn;
                 cmd.CommandText = "INSERT INTO product (SKU, dept_id, prod_name, size, unit, price) " +
                                   "VALUES (@sku, @deptId, @prodName, @size, @unit, @minPrice)";
@@ -185,31 +151,24 @@ public class DatabaseHelper : IDisposable
                 cmd.ExecuteNonQuery();
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             MessageBox.Show($"Error inserting product: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        finally
-        {
+        finally {
             conn.Close();
         }
     }
 
-    public void Dispose()
-    {
-        if (conn != null && conn.State == ConnectionState.Open)
-        {
+    public void Dispose() {
+        if (conn != null && conn.State == ConnectionState.Open) {
             conn.Close();
             conn.Dispose();
         }
     }
 
-    public void InsertStocks(int storeID, int sku)
-    {
-        try
-        {
-            using (MySqlCommand cmd = new MySqlCommand())
-            {
+    public void InsertStocks(int storeID, int sku) {
+        try {
+            using (MySqlCommand cmd = new MySqlCommand()) {
                 cmd.Connection = conn;
                 cmd.CommandText = "INSERT INTO stocks (store_id, SKU) VALUES (@store_id, @sku)";
                 cmd.Parameters.AddWithValue("@store_id", storeID);
@@ -219,22 +178,17 @@ public class DatabaseHelper : IDisposable
                 cmd.ExecuteNonQuery();
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             MessageBox.Show($"Error inserting stocks: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        finally
-        {
+        finally {
             conn.Close();
         }
     }
 
-    public void InsertManufactures(int sku, string brandID)
-    {
-        try
-        {
-            using (MySqlCommand cmd = new MySqlCommand())
-            {
+    public void InsertManufactures(int sku, string brandID) {
+        try {
+            using (MySqlCommand cmd = new MySqlCommand()) {
                 cmd.Connection = conn;
                 cmd.CommandText = "INSERT INTO manufactures (SKU, brand_ID) VALUES (@sku, @brandID)";
                 cmd.Parameters.AddWithValue("@sku", sku);
@@ -244,18 +198,15 @@ public class DatabaseHelper : IDisposable
                 cmd.ExecuteNonQuery();
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             MessageBox.Show($"Error inserting manufactures: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        finally
-        {
+        finally {
             conn.Close();
         }
     }
 
-    internal bool BrandExists(string brandId)
-    {
+    internal bool BrandExists(string brandId){
         // Check if brand ID already exists in the brand table
         string query = "SELECT COUNT(*) FROM brand WHERE brand_ID = @brandID";
         bool exists = false;
@@ -281,8 +232,7 @@ public class DatabaseHelper : IDisposable
         return exists;
     }
 
-    internal void InsertBrand(string brandID, string brandName, bool @store_brand)
-    {
+    internal void InsertBrand(string brandID, string brandName, bool @store_brand){
         // insert into brand table brandID, brandName, store_brand
         try
         {
@@ -307,7 +257,7 @@ public class DatabaseHelper : IDisposable
             conn.Close();
         }
     }
-    public DataTable GetEmployees(string searchTxt, string position = "Any", string payrollType = "Any", string storeId = null, bool matchExact = false, bool matchAny = false)
+  public DataTable GetEmployees(string searchTxt, string position = "Any", string payrollType = "Any", string storeId = null, bool matchExact = false, bool matchAny = false)
     {
         string query = "SELECT employee.E_ID, M_ID, e_name AS 'Employee Name', position, payroll_type, pay_rate, store_id FROM employee LEFT OUTER JOIN works_in ON employee.e_id = works_in.e_id";
         List<string> conditions = new List<string>();
@@ -416,3 +366,4 @@ public class DatabaseHelper : IDisposable
         return new List<string> { "Hourly", "Salary" };
     }
 }
+
