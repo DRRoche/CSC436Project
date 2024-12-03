@@ -309,7 +309,7 @@ public class DatabaseHelper : IDisposable
     }
     public DataTable GetEmployees(string searchTxt, string position = "Any", string payrollType = "Any", string storeId = null, bool matchExact = false, bool matchAny = false)
     {
-        string query = "SELECT E_ID, M_ID, e_name AS 'Employee Name', position, payroll_type, pay_rate FROM employee";
+        string query = "SELECT employee.E_ID, M_ID, e_name AS 'Employee Name', position, payroll_type, pay_rate, store_id FROM employee LEFT OUTER JOIN works_in ON employee.e_id = works_in.e_id";
         List<string> conditions = new List<string>();
         MySqlCommand cmd = new MySqlCommand();
 
@@ -340,7 +340,7 @@ public class DatabaseHelper : IDisposable
 
         if (!string.IsNullOrEmpty(storeId))
         {
-            conditions.Add("M_ID = @storeId");
+            conditions.Add("store_ID = @storeId");
             cmd.Parameters.AddWithValue("@storeId", storeId);
         }
 
@@ -349,10 +349,11 @@ public class DatabaseHelper : IDisposable
             query += " WHERE " + string.Join(matchAny ? " OR " : " AND ", conditions);
 
         cmd.CommandText = query;
+        Clipboard.SetText(query);
         return ExecuteQuery(cmd);
     }
 
-    public void InsertEmployee(string name, string position, string payrollType, decimal payRate, int? managerId = null)
+    public void InsertEmployee(string name, string position, string payrollType, decimal payRate, int storeId, int? managerId = null)
     {
         try
         {
