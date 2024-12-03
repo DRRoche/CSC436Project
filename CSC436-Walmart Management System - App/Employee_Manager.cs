@@ -18,6 +18,8 @@ namespace CSC436_Walmart_Management_System___App
         {
             InitializeComponent();
             dbHelper = existingDbHelper;
+            
+            this.FormClosing += Employee_Manager_FormClosing;
 
             // Populate combo boxes with initial data
             PopulateComboBox(positionList, dbHelper.GetRoles(), "Any");
@@ -28,6 +30,12 @@ namespace CSC436_Walmart_Management_System___App
             // Attach event handlers
             searchRad.CheckedChanged += ToggleMode;
             addEmployeeRad.CheckedChanged += ToggleMode;
+        }
+        
+        private void Employee_Manager_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
         }
 
         private void LoadEmployeeData(string searchTxt)

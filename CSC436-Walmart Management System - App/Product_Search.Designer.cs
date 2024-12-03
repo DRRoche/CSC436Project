@@ -88,6 +88,7 @@
             prodNameTxt.Name = "prodNameTxt";
             prodNameTxt.Size = new Size(212, 23);
             prodNameTxt.TabIndex = 1;
+            prodNameTxt.KeyPress += prodNameTxt_KeyPress;
             // 
             // searchBtn
             // 
