@@ -13,15 +13,13 @@
         private System.Windows.Forms.Button searchBtn;
         private System.Windows.Forms.RadioButton exactlyRad;
         private System.Windows.Forms.RadioButton anyRad;
-        private System.Windows.Forms.RadioButton allRad;
+        private System.Windows.Forms.RadioButton searchRad;
+        private System.Windows.Forms.RadioButton addEmployeeRad;
         private System.Windows.Forms.GroupBox searchMatchChoiceBox;
         private System.Windows.Forms.GroupBox employeeGrpBox;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.RadioButton addEmployeeRad;
-        private System.Windows.Forms.RadioButton searchRad;
+        private System.Windows.Forms.GroupBox modeGrpBox;
         private System.Windows.Forms.ComboBox positionList;
         private System.Windows.Forms.ComboBox payrollTypeList;
-        private System.Windows.Forms.TextBox storeIdTxt;
         private System.Windows.Forms.TextBox payRateTxt;
         private System.Windows.Forms.GroupBox positionGrpBox;
         private System.Windows.Forms.GroupBox payrollGrpBox;
@@ -56,25 +54,24 @@
             searchBtn = new Button();
             exactlyRad = new RadioButton();
             anyRad = new RadioButton();
-            allRad = new RadioButton();
+            searchRad = new RadioButton();
+            addEmployeeRad = new RadioButton();
             searchMatchChoiceBox = new GroupBox();
             employeeGrpBox = new GroupBox();
-            groupBox4 = new GroupBox();
-            addEmployeeRad = new RadioButton();
-            searchRad = new RadioButton();
+            modeGrpBox = new GroupBox();
             positionList = new ComboBox();
             payrollTypeList = new ComboBox();
-            storeIdTxt = new TextBox();
             payRateTxt = new TextBox();
             positionGrpBox = new GroupBox();
             payrollGrpBox = new GroupBox();
             storeGrpBox = new GroupBox();
+            storeList = new ComboBox();
             payRateGrpBox = new GroupBox();
             errorProvider1 = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             searchMatchChoiceBox.SuspendLayout();
             employeeGrpBox.SuspendLayout();
-            groupBox4.SuspendLayout();
+            modeGrpBox.SuspendLayout();
             positionGrpBox.SuspendLayout();
             payrollGrpBox.SuspendLayout();
             storeGrpBox.SuspendLayout();
@@ -104,6 +101,7 @@
             searchBtn.Size = new Size(75, 23);
             searchBtn.TabIndex = 2;
             searchBtn.Text = "Search";
+            searchBtn.Click += searchBtn_Click;
             // 
             // exactlyRad
             // 
@@ -111,37 +109,57 @@
             exactlyRad.Checked = true;
             exactlyRad.Location = new Point(6, 22);
             exactlyRad.Name = "exactlyRad";
-            exactlyRad.Size = new Size(14, 13);
+            exactlyRad.Size = new Size(62, 19);
             exactlyRad.TabIndex = 0;
             exactlyRad.TabStop = true;
+            exactlyRad.Text = "Exactly";
+            exactlyRad.UseVisualStyleBackColor = true;
             // 
             // anyRad
             // 
             anyRad.AutoSize = true;
-            anyRad.Location = new Point(106, 22);
+            anyRad.Location = new Point(75, 22);
             anyRad.Name = "anyRad";
-            anyRad.Size = new Size(14, 13);
-            anyRad.TabIndex = 2;
+            anyRad.Size = new Size(46, 19);
+            anyRad.TabIndex = 1;
+            anyRad.Text = "Any";
+            anyRad.UseVisualStyleBackColor = true;
             // 
-            // allRad
+            // searchRad
             // 
-            allRad.AutoSize = true;
-            allRad.Location = new Point(203, 22);
-            allRad.Name = "allRad";
-            allRad.Size = new Size(14, 13);
-            allRad.TabIndex = 1;
+            searchRad.AutoSize = true;
+            searchRad.Checked = true;
+            searchRad.Location = new Point(6, 22);
+            searchRad.Name = "searchRad";
+            searchRad.Size = new Size(60, 19);
+            searchRad.TabIndex = 0;
+            searchRad.TabStop = true;
+            searchRad.Text = "Search";
+            searchRad.UseVisualStyleBackColor = true;
+            searchRad.CheckedChanged += ToggleMode;
+            // 
+            // addEmployeeRad
+            // 
+            addEmployeeRad.AutoSize = true;
+            addEmployeeRad.Enabled = false;
+            addEmployeeRad.Location = new Point(75, 22);
+            addEmployeeRad.Name = "addEmployeeRad";
+            addEmployeeRad.Size = new Size(102, 19);
+            addEmployeeRad.TabIndex = 1;
+            addEmployeeRad.Text = "Add Employee";
+            addEmployeeRad.UseVisualStyleBackColor = true;
+            addEmployeeRad.CheckedChanged += ToggleMode;
             // 
             // searchMatchChoiceBox
             // 
             searchMatchChoiceBox.Controls.Add(exactlyRad);
-            searchMatchChoiceBox.Controls.Add(allRad);
             searchMatchChoiceBox.Controls.Add(anyRad);
             searchMatchChoiceBox.Location = new Point(10, 51);
             searchMatchChoiceBox.Name = "searchMatchChoiceBox";
             searchMatchChoiceBox.Size = new Size(303, 47);
             searchMatchChoiceBox.TabIndex = 1;
             searchMatchChoiceBox.TabStop = false;
-            searchMatchChoiceBox.Text = "Match:";
+            searchMatchChoiceBox.Text = "Search Match Mode";
             // 
             // employeeGrpBox
             // 
@@ -151,59 +169,36 @@
             employeeGrpBox.Location = new Point(12, 288);
             employeeGrpBox.Name = "employeeGrpBox";
             employeeGrpBox.Size = new Size(322, 102);
-            employeeGrpBox.TabIndex = 1;
+            employeeGrpBox.TabIndex = 2;
             employeeGrpBox.TabStop = false;
-            employeeGrpBox.Text = "Employee Name";
             // 
-            // groupBox4
+            // modeGrpBox
             // 
-            groupBox4.Controls.Add(addEmployeeRad);
-            groupBox4.Controls.Add(searchRad);
-            groupBox4.Location = new Point(12, 396);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(323, 42);
-            groupBox4.TabIndex = 2;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Mode";
-            // 
-            // addEmployeeRad
-            // 
-            addEmployeeRad.Location = new Point(0, 0);
-            addEmployeeRad.Name = "addEmployeeRad";
-            addEmployeeRad.Size = new Size(104, 24);
-            addEmployeeRad.TabIndex = 0;
-            // 
-            // searchRad
-            // 
-            searchRad.Location = new Point(0, 0);
-            searchRad.Name = "searchRad";
-            searchRad.Size = new Size(104, 24);
-            searchRad.TabIndex = 1;
+            modeGrpBox.Controls.Add(searchRad);
+            modeGrpBox.Controls.Add(addEmployeeRad);
+            modeGrpBox.Location = new Point(12, 392);
+            modeGrpBox.Name = "modeGrpBox";
+            modeGrpBox.Size = new Size(322, 51);
+            modeGrpBox.TabIndex = 3;
+            modeGrpBox.TabStop = false;
             // 
             // positionList
             // 
-            positionList.Location = new Point(0, 0);
+            positionList.Location = new Point(6, 21);
             positionList.Name = "positionList";
             positionList.Size = new Size(121, 23);
             positionList.TabIndex = 0;
             // 
             // payrollTypeList
             // 
-            payrollTypeList.Location = new Point(0, 0);
+            payrollTypeList.Location = new Point(6, 21);
             payrollTypeList.Name = "payrollTypeList";
             payrollTypeList.Size = new Size(121, 23);
             payrollTypeList.TabIndex = 0;
             // 
-            // storeIdTxt
-            // 
-            storeIdTxt.Location = new Point(0, 0);
-            storeIdTxt.Name = "storeIdTxt";
-            storeIdTxt.Size = new Size(100, 23);
-            storeIdTxt.TabIndex = 0;
-            // 
             // payRateTxt
             // 
-            payRateTxt.Location = new Point(0, 0);
+            payRateTxt.Location = new Point(15, 22);
             payRateTxt.Name = "payRateTxt";
             payRateTxt.Size = new Size(100, 23);
             payRateTxt.TabIndex = 0;
@@ -211,40 +206,48 @@
             // positionGrpBox
             // 
             positionGrpBox.Controls.Add(positionList);
-            positionGrpBox.Location = new Point(340, 288);
+            positionGrpBox.Location = new Point(355, 288);
             positionGrpBox.Name = "positionGrpBox";
-            positionGrpBox.Size = new Size(150, 50);
-            positionGrpBox.TabIndex = 3;
+            positionGrpBox.Size = new Size(165, 62);
+            positionGrpBox.TabIndex = 4;
             positionGrpBox.TabStop = false;
             positionGrpBox.Text = "Position";
             // 
             // payrollGrpBox
             // 
             payrollGrpBox.Controls.Add(payrollTypeList);
-            payrollGrpBox.Location = new Point(340, 340);
+            payrollGrpBox.Location = new Point(355, 376);
             payrollGrpBox.Name = "payrollGrpBox";
-            payrollGrpBox.Size = new Size(150, 50);
-            payrollGrpBox.TabIndex = 4;
+            payrollGrpBox.Size = new Size(165, 62);
+            payrollGrpBox.TabIndex = 5;
             payrollGrpBox.TabStop = false;
             payrollGrpBox.Text = "Payroll Type";
             // 
             // storeGrpBox
             // 
-            storeGrpBox.Controls.Add(storeIdTxt);
-            storeGrpBox.Location = new Point(500, 288);
+            storeGrpBox.Controls.Add(storeList);
+            storeGrpBox.Location = new Point(533, 288);
             storeGrpBox.Name = "storeGrpBox";
-            storeGrpBox.Size = new Size(150, 50);
-            storeGrpBox.TabIndex = 5;
+            storeGrpBox.Size = new Size(165, 62);
+            storeGrpBox.TabIndex = 6;
             storeGrpBox.TabStop = false;
             storeGrpBox.Text = "Store ID";
+            // 
+            // storeList
+            // 
+            storeList.FormattingEnabled = true;
+            storeList.Location = new Point(9, 22);
+            storeList.Name = "storeList";
+            storeList.Size = new Size(121, 23);
+            storeList.TabIndex = 1;
             // 
             // payRateGrpBox
             // 
             payRateGrpBox.Controls.Add(payRateTxt);
-            payRateGrpBox.Location = new Point(500, 340);
+            payRateGrpBox.Location = new Point(533, 376);
             payRateGrpBox.Name = "payRateGrpBox";
-            payRateGrpBox.Size = new Size(150, 50);
-            payRateGrpBox.TabIndex = 6;
+            payRateGrpBox.Size = new Size(165, 62);
+            payRateGrpBox.TabIndex = 7;
             payRateGrpBox.TabStop = false;
             payRateGrpBox.Text = "Pay Rate";
             // 
@@ -257,23 +260,24 @@
             ClientSize = new Size(800, 450);
             Controls.Add(dataGridView1);
             Controls.Add(employeeGrpBox);
-            Controls.Add(groupBox4);
+            Controls.Add(modeGrpBox);
             Controls.Add(positionGrpBox);
             Controls.Add(payrollGrpBox);
             Controls.Add(storeGrpBox);
             Controls.Add(payRateGrpBox);
             Name = "Employee_Manager";
             Text = "Employee Manager";
+            FormClosing += Employee_Manager_FormClosing;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             searchMatchChoiceBox.ResumeLayout(false);
             searchMatchChoiceBox.PerformLayout();
             employeeGrpBox.ResumeLayout(false);
             employeeGrpBox.PerformLayout();
-            groupBox4.ResumeLayout(false);
+            modeGrpBox.ResumeLayout(false);
+            modeGrpBox.PerformLayout();
             positionGrpBox.ResumeLayout(false);
             payrollGrpBox.ResumeLayout(false);
             storeGrpBox.ResumeLayout(false);
-            storeGrpBox.PerformLayout();
             payRateGrpBox.ResumeLayout(false);
             payRateGrpBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
@@ -281,5 +285,7 @@
         }
 
         #endregion
+
+        private ComboBox storeList;
     }
 }
