@@ -33,7 +33,7 @@ where store_id = 4;
 -- find products containing <string>
 select * 
 from unit_price 
-where prod_name like "%oil%" or prod_name like "%coffee%";
+where prod_name like "%test%"; -- or prod_name like "%coffee%";
  
 -- update price single item
 select * from unit_price where prod_name like "%coffee%";
